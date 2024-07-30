@@ -9,7 +9,7 @@ class Add5And4NumberLine(Scene):
         number_line = NumberLine(
             x_range=[0, 10, 1],
             length=10,
-            color=BLUE,
+            color=WHITE,
             include_numbers=True,
             label_direction=UP,
         ).shift(DOWN)
