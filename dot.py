@@ -5,10 +5,14 @@ class Add5And4dot(Scene):
         # 創建題目(使用者輸入的問題)
         n1 = 5
         n2 = 4
-        title = Text(f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?", font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
-        exp_1 = Text(f"首先我們有{n1}顆糖果", font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 3 + UP * 0)
-        exp_2 = Text(f"媽媽多給我們{n2}顆", font="Noto Sans CJK", font_size=30, color=BLUE).move_to(LEFT * 3 + DOWN * 1)
-        ans = Text(f"因此我們最後有{n1+n2}顆", font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+        s1 = f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?"
+        s2 = f"首先我們有{n1}顆糖果"
+        s3 = f"媽媽多給我們{n2}顆"
+        s4 = f"因此我們最後有{n1+n2}顆"
+        title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
+        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 3 + UP * 0)
+        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=BLUE).move_to(LEFT * 3 + DOWN * 1)
+        ans = Text(s4, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
         dots1 = []
         dots2 = []
         # 使用迴圈創建多個點並將它們添加到列表中
@@ -32,6 +36,20 @@ class Add5And4dot(Scene):
         self.play(Write(exp_2))
         for dot in dots2:
             self.play(FadeIn(dot))
+
+        i = n1+n2
+        for dot in dots1:
+            self.play(dot.animate.move_to(LEFT * (i-4) + DOWN * 2), run_time=0.5)
+            i-=1
+
+        for dot in dots2:
+            self.play(dot.animate.move_to(LEFT * (i-4) + DOWN * 2), run_time=0.5)
+            i-=1
+
+        self.play(FadeOut(exp_1), FadeOut(exp_2))
+
+        for dot in dots1 + dots2:
+            dot.set_color(GREEN)
         self.play(Write(ans))
         self.wait(2)
         # 移動點表示加法過程
