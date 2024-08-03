@@ -84,39 +84,38 @@ class Add31And54Dot(Scene):
         #顯示文字
         
         all_dots = unit_dots1 + unit_dots2
+        digits = units1+units2
         all_circles = ten_circles1 + ten_circles2
+        tens_digits = tens1+tens2
 
         self.wait(1)
         self.play(FadeOut(exp_1), FadeOut(exp_2), FadeOut(exp_3), FadeOut(exp_4), FadeOut(exp_5))
 
         #移動個位數的點
-        i = units1+units2
+        
+        i = digits
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * ((units1+units2)//2-i)), run_time=0.5)
+            self.play(dot.animate.move_to(RIGHT * ((digits)//2-i)), run_time=0.5)
             i-=1
 
         #移動十位數的點
-        i = tens1+tens2
+        i = tens_digits
         for circle in all_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * ((tens1+tens2)//2-i)+ DOWN * 2), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 2), run_time=0.5)
             i-=1
+        #把答案顯示
         self.wait(1)
         self.play(Write(exp_7))
+        digits_text = Text(digits, font="Noto Sans CJK", font_size=30).to_edge(RIGHT)
+        #add_text = Text("")
+        self.play(Write(digits))
         self.wait(1)
         self.play(FadeOut(exp_6), FadeOut(exp_7))
         
-
-
-
-        
-        
-        
-        
-
         self.play(Write(ans))
         self.wait(2)
 
