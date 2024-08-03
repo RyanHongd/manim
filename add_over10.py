@@ -3,11 +3,12 @@ from manim import *
 class Add5And4dot(Scene):
     def construct(self):
         # 創建題目(使用者輸入的問題)
-        n1 = 5
-        n2 = 4
+        n1 = 31
+        n2 = 54
         s1 = f"小明有{n1}個糖果, 媽媽拿走他{n2}個, 現在共有幾個?"
         s2 = f"首先我們有{n1}顆糖果"
-        s3 = f"媽媽拿走我們{n2}顆"
+        s3 = f"媽媽再給我們{n2}顆"
+        s4 = f"我們可以把{n1}的十位數跟個位數分開"
         s4 = f"因此我們最後剩下{n1-n2}顆"
         title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
         exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 4 + UP * 0)
