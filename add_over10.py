@@ -22,7 +22,7 @@ class Add31And54Dot(Scene):
         exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4)
         exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
         exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
-        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 1)
+        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
         ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
         
         # 創建點
@@ -87,6 +87,7 @@ class Add31And54Dot(Scene):
         digits = units1+units2
         all_circles = ten_circles1 + ten_circles2
         tens_digits = tens1+tens2
+        sum= n1+n2
 
         self.wait(1)
         self.play(FadeOut(exp_1), FadeOut(exp_2), FadeOut(exp_3), FadeOut(exp_4), FadeOut(exp_5))
@@ -97,7 +98,7 @@ class Add31And54Dot(Scene):
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * ((digits)//2-i)), run_time=0.5)
+            self.play(dot.animate.move_to(RIGHT * ((digits)//2-i) + UP *1), run_time=0.5)
             i-=1
 
         #移動十位數的點
@@ -105,16 +106,33 @@ class Add31And54Dot(Scene):
         for circle in all_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 2), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 1), run_time=0.5)
             i-=1
         #把答案顯示
+        
+        self.wait(1)
+        self.play(FadeOut(exp_6))
         self.wait(1)
         self.play(Write(exp_7))
-        digits_text = Text(digits, font="Noto Sans CJK", font_size=30).to_edge(RIGHT)
-        #add_text = Text("")
-        self.play(Write(digits))
+
+
+        digits_text = Text(str(digits), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP *1)
+        add_text = Text("+", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
+        tens_digits_text = Text(str(tens_digits*10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
+        equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
+        sum_text = Text(str(sum), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 3)
+        self.play(Write(digits_text))
+        self.play(Write(add_text))
+        self.play(Write(tens_digits_text))
         self.wait(1)
-        self.play(FadeOut(exp_6), FadeOut(exp_7))
+        self.play(digits_text.animate.move_to(LEFT * 2 + DOWN * 2))
+        self.play(add_text.animate.move_to(LEFT * 1 + DOWN * 2))
+        self.play(tens_digits_text.animate.move_to(DOWN * 2))
+        self.wait(1)
+        self.play(equal_text.animate.move_to(RIGHT * 1 + DOWN * 2))
+        self.play(sum_text.animate.move_to(RIGHT * 2 + DOWN * 2))
+        self.wait(1)
+        self.play(FadeOut(exp_7))
         
         self.play(Write(ans))
         self.wait(2)
