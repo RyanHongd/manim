@@ -55,7 +55,7 @@ class Add31And54Dot(Scene):
             ten_circles2.append(VGroup(circle, text))
         
         
-        # 影片流程
+        # 題目流程
         self.play(Write(title))
         self.wait(1)
         self.play(Write(exp_1))
@@ -108,14 +108,14 @@ class Add31And54Dot(Scene):
             circle[1].set_color(WHITE)
             self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 1), run_time=0.5)
             i-=1
-        #把答案顯示
+        
         
         self.wait(1)
         self.play(FadeOut(exp_6))
         self.wait(1)
         self.play(Write(exp_7))
 
-
+        #把答案顯示
         digits_text = Text(str(digits), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP *1)
         add_text = Text("+", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         tens_digits_text = Text(str(tens_digits*10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
