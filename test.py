@@ -147,12 +147,7 @@ class Add31And54Dot(Scene):
         self.play(Write(ans))
         self.wait(2)
 
-if __name__ == "__main__":
-    from manim import config
-    config.media_width = "100%"
-    config.verbosity = "WARNING"
-    scene = Add31And54Dot()
-    scene.render()
+
 
 
 

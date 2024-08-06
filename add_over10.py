@@ -3,8 +3,8 @@ from manim import *
 class Add31And54Dot(Scene):
     def construct(self):
         # 創建题目（使用者输入的问题）
-        n1 = 31
-        n2 = 54
+        n1 = 39
+        n2 = 59
         s1 = f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?"
         s2 = f"首先我們有{n1}顆糖果"
         s3 = f"媽媽再給我們{n2}顆"
@@ -98,8 +98,25 @@ class Add31And54Dot(Scene):
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * ((digits)//2-i) + UP *1), run_time=0.5)
+            self.play(dot.animate.move_to(RIGHT * (((digits)//2-i)*0.5) + UP *1), run_time=0.5)
             i-=1
+        #創建框
+        if digits>10:
+            digits-=10
+            tens_digits+=1 
+            selected_dots = all_dots[:10]
+            dots_group = VGroup(*selected_dots)
+            rect = SurroundingRectangle(dots_group, color=BLUE, buff=0.3)
+            self.play(Create(rect))
+            self.wait(2)
+            for dot in selected_dots:
+                self.remove(dot)
+            circle = Circle(radius=0.3, color=RED).move_to((-2, 1, 0))
+            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            self.play(FadeIn(circle, text))
+            all_circles.append(VGroup(circle, text))
+            self.wait(1)
+            self.play(FadeOut(rect))
 
         #移動十位數的點
         i = tens_digits
