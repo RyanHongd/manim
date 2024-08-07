@@ -77,10 +77,10 @@ class Subtract59From31Dot(Scene):
             self.play(FadeIn(text))
             self.play(ten_circles1[tens1].animate.move_to(DOWN * 1.5))
             for j in range(j+10):
-                dot = Dot(point=((j+1) * 0.3 - 0.65,0.5, 0), color=RED)
+                dot = Dot(point=((j+1) * 0.3 - 0.65,0.5, 0), color=YELLOW)
                 self.play(FadeIn(dot), run_time=0.1)
                 unit_dots1.append(dot)
-            self.wait(1)
+            self.wait(2)
             self.remove(ten_circles1[tens1])
             ten_circles1.remove(ten_circles1[tens1])
 
@@ -122,6 +122,7 @@ class Subtract59From31Dot(Scene):
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
             self.play(circle.animate.move_to(RIGHT * (remaining_circles.index(circle) - tens1/2)), run_time=0.5)
+        self.wait(1)
         ans_text = Text(str(n1-n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
         self.play(FadeOut(text),FadeIn(ans_text),Write(exp_7))
