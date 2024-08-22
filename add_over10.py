@@ -2,7 +2,7 @@ from manim import *
 
 class Add31And54Dot(Scene):
     def construct(self):
-        # 創建题目（使用者输入的问题）
+        # 創建文字（使用者输入的問題）
         n1 = 39
         n2 = 59
         s1 = f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?"
@@ -24,7 +24,19 @@ class Add31And54Dot(Scene):
         exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
         exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
         ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
-        
+
+        #打印文字
+        self.play(Write(title))
+        self.wait(1)
+        self.play(Write(exp_1))
+        self.wait(1)
+        self.play(Write(exp_2))
+        self.wait(1)
+        self.play(Write(exp_3))
+        self.wait(1)
+        self.play(Write(exp_4))
+        self.wait(1) 
+
         # 創建點
         units1 = n1 % 10
         tens1 = n1 // 10
@@ -55,19 +67,8 @@ class Add31And54Dot(Scene):
             ten_circles2.append(VGroup(circle, text))
         
         
-        # 題目流程
-        self.play(Write(title))
-        self.wait(1)
-        self.play(Write(exp_1))
-        self.wait(1)
-        self.play(Write(exp_2))
-        self.wait(1)
-        self.play(Write(exp_3))
-        self.wait(1)
-
-        # 顯示所有點
-        self.play(Write(exp_4))
-        self.wait(1)        
+        
+        # 打印點     
         for dot in unit_dots1:
             self.play(FadeIn(dot), run_time=0.1)
         for circle in ten_circles1:
@@ -81,26 +82,26 @@ class Add31And54Dot(Scene):
         for circle in ten_circles2:
             self.play(FadeIn(circle), run_time=0.1)
         
-        #顯示文字
         
+        
+
+        #移動個位數的點
         all_dots = unit_dots1 + unit_dots2
         digits = units1+units2
         all_circles = ten_circles1 + ten_circles2
         tens_digits = tens1+tens2
         sum= n1+n2
+        i = digits
 
         self.wait(1)
         self.play(FadeOut(exp_1), FadeOut(exp_2), FadeOut(exp_3), FadeOut(exp_4), FadeOut(exp_5))
-
-        #移動個位數的點
-        
-        i = digits
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
             self.play(dot.animate.move_to(RIGHT * (((digits)//2-i)*0.5) + UP *1), run_time=0.5)
             i-=1
-        #創建框
+
+        #進位時創建框
         if digits>10:
             digits-=10
             tens_digits+=1 
@@ -125,14 +126,12 @@ class Add31And54Dot(Scene):
             circle[1].set_color(WHITE)
             self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 1), run_time=0.5)
             i-=1
-        
-        
+
+        #把答案顯示
         self.wait(1)
         self.play(FadeOut(exp_6))
         self.wait(1)
         self.play(Write(exp_7))
-
-        #把答案顯示
         digits_text = Text(str(digits), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP *1)
         add_text = Text("+", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         tens_digits_text = Text(str(tens_digits*10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
@@ -155,9 +154,4 @@ class Add31And54Dot(Scene):
         self.wait(2)
 
 
-
-        # 移動點表示加法過程
-        #self.play(dot2.animate.move_to(number_line.n2p(9)), run_time=2)
-        #self.play(line2.animate.move_to(number_line.n2p(7)), run_time=2)
-        #self.play(Transform(dot_label2, Text("9", font_size=36, color=RED).next_to(dot2, DOWN)))
-        #self.wait(2)
+        

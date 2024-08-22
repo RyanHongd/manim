@@ -24,27 +24,8 @@ class Subtract59From31Dot(Scene):
         exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(RIGHT * 3 + UP * 2)
         exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
         ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
-        
-        units1 = n1 % 10
-        tens1 = n1 // 10
-        units2 = n2 % 10
-        tens2 = n2 // 10
-        
-        unit_dots1 = []
-        ten_circles1 = []
-        
-        
-        for j in range(units1):
-            dot = Dot(point=(j * 0.3 - 0.65, 0.5, 0), color=RED)
-            unit_dots1.append(dot)
-        
-        for i in range(tens1):
-            circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0))
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
-            ten_circles1.append(VGroup(circle, text))
-        
-        
-        # 影片流程
+
+        # 打印文字
         self.play(Write(title))
         self.wait(1)
         self.play(Write(exp_1))
@@ -55,7 +36,25 @@ class Subtract59From31Dot(Scene):
         self.wait(1)
         self.play(Write(exp_4))
 
-        # 顯示所有點
+        #創建點
+        units1 = n1 % 10
+        tens1 = n1 // 10
+        units2 = n2 % 10
+        tens2 = n2 // 10
+        
+        unit_dots1 = []
+        ten_circles1 = []
+        
+        for j in range(units1):
+            dot = Dot(point=(j * 0.3 - 0.65, 0.5, 0), color=RED)
+            unit_dots1.append(dot)
+        
+        for i in range(tens1):
+            circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0))
+            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            ten_circles1.append(VGroup(circle, text))
+
+        # 打印所有點
         for dot in unit_dots1:
             self.play(FadeIn(dot), run_time=0.05)
         for circle in ten_circles1:
@@ -68,8 +67,8 @@ class Subtract59From31Dot(Scene):
         self.play(Write(exp_5))
         self.wait(1)
         self.play(Write(exp_6))
-        
-        #把要提出的點拿出
+
+        #借位
         if units1<units2:
             tens1-=1
             units1+=10
@@ -84,6 +83,8 @@ class Subtract59From31Dot(Scene):
             self.remove(ten_circles1[tens1])
             ten_circles1.remove(ten_circles1[tens1])
 
+
+        #把要提出的點拿出
         selected_dots = unit_dots1[:units2]
         selected_circles = ten_circles1[:tens2]
         
@@ -108,7 +109,7 @@ class Subtract59From31Dot(Scene):
         self.play(minus.animate.move_to(LEFT * 1 + DOWN * 2))
         self.play(lat_num.animate.move_to(DOWN * 2))
 
-        #剩下的點
+        #計算剩下的點
         remaining_dots = [dot for dot in unit_dots1 if dot not in selected_dots]
         remaining_circles = [circle for circle in ten_circles1 if circle not in selected_circles]
         
@@ -123,8 +124,11 @@ class Subtract59From31Dot(Scene):
             circle[1].set_color(WHITE)
             self.play(circle.animate.move_to(RIGHT * (remaining_circles.index(circle) - tens1/2)), run_time=0.5)
         self.wait(1)
+
+        #打印答案
         ans_text = Text(str(n1-n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
+
         self.play(FadeOut(text),FadeIn(ans_text),Write(exp_7))
         self.wait(1)
         self.play(equal_text.animate.move_to(RIGHT * 1 + DOWN * 2))

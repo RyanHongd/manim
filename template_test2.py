@@ -30,6 +30,16 @@ class CombinedAddSubtractDot(Scene):
         exp_8 = Text(s9, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
         ans = Text(s10, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
 
+        # 題目流程
+        self.play(Write(title))
+        self.wait(1)
+        self.play(Write(exp_1))
+        self.wait(1)
+        self.play(Write(exp_2))
+        self.wait(1)
+        self.play(Write(exp_3))
+        self.wait(1)
+        
         units1 = initial_money % 10
         tens1 = initial_money // 10
         units2 = received_money % 10
@@ -71,15 +81,7 @@ class CombinedAddSubtractDot(Scene):
             text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
             ten_circles3.append(VGroup(circle, text))
         
-        # 題目流程
-        self.play(Write(title))
-        self.wait(1)
-        self.play(Write(exp_1))
-        self.wait(1)
-        self.play(Write(exp_2))
-        self.wait(1)
-        self.play(Write(exp_3))
-        self.wait(1)
+
 
         # 顯示所有點
         self.play(Write(exp_4))
