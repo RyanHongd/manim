@@ -1,28 +1,49 @@
 from manim import *
+
 class Add31And54Dot(Scene):
     def construct(self):
-        # 創建文字（使用者输入的問題）
-        n1 = 24
-        n2 = 13
-        s1 = f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?"
-        s2 = f"首先我們有{n1}顆糖果"
-        s3 = f"媽媽再給我們{n2}顆"
-        s4 = f"我們可以把十位數跟個位數分開"
-        s5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
-        s6 = f"{n2}可以被分成{n2 // 10}個10跟{n2 % 10}個1"
-        s7 = f"把所有的1加起來, 再把所有的10加起來"
-        s8 = f"最後再把十位數和個位數加起來"
-        s9 = f"因此我們共有{n1 + n2}顆"
+        # 創建文字（解釋）
+        n1 = 39
+        n2 = 59
+        n3 = 29
+
+        a1 = f"小明有{n1}個糖果, 媽媽給他{n2}個, 小華再拿走{n3}個, 現在共有幾個?"
+        a2 = f"我們先算加法"
+        a3 = f"首先小明有{n1}顆糖果"
+        a4 = f"媽媽再給小明{n2}顆"
+        a5 = f"我們可以把十位數跟個位數分開"
+        a6 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
+        a7 = f"{n2}可以被分成{n2 // 10}個10跟{n2 % 10}個1"
+        a8 = f"數一數共有多少個1跟10"
+        a9 = f"因此我們共有{n1 + n2}顆"
+
+        m1 = f"算完加法後接著算減法"
+        m2 = f"小明現在有{n1}顆糖果"
+        m3 = f"他給了小華{n2}顆"
+        m4 = f"我們可以把十位數跟個位數分開"
+        m5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
+        m6 = f"要從{n1}拿出{n2}個"
+        m7 = f"把要給的1拿出, 再把要給的10拿出"
+        m8 = f"因此我們最後剩下{n1 - n2}顆"
         
-        title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
-        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 4 + UP * 2)
-        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=BLUE).move_to(UP * 2)
-        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
-        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4)
-        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
-        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
-        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
-        ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+        title = Text(a1, font="Noto Sans CJK", font_size=33, color=YELLOW).to_edge(UP)
+        exp_1 = Text(a2, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 2)
+        exp_2 = Text(a3, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        exp_3 = Text(a4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 )
+        exp_4 = Text(a5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
+        exp_5 = Text(a6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 2)
+        exp_6 = Text(a7, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        exp_7 = Text(a8, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
+        sum = Text(a9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+
+        title = Text(m1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
+        exp_1 = Text(m2, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 2)
+        exp_2 = Text(m3, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        exp_3 = Text(m4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4)
+        exp_4 = Text(m5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
+        exp_5 = Text(m6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 2)
+        exp_6 = Text(m7, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        ans = Text(m8, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
 
         #打印文字
         self.play(Write(title))
@@ -97,7 +118,10 @@ class Add31And54Dot(Scene):
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * (((digits)//2-i)*0.5) + UP *1), run_time=0.5)
+            if i>digits-10:
+                self.play(dot.animate.move_to(RIGHT * ((digits-i)*0.5+1) + UP *1), run_time=0.5)
+            else:
+                self.play(dot.animate.move_to(RIGHT * ((digits-(i+10))*0.5+1)), run_time=0.5)
             i-=1
 
         #進位時創建框
@@ -111,7 +135,7 @@ class Add31And54Dot(Scene):
             self.wait(2)
             for dot in selected_dots:
                 self.remove(dot)
-            circle = Circle(radius=0.3, color=RED).move_to((-2, 1, 0))
+            circle = Circle(radius=0.3, color=RED).move_to(rect.get_center())
             text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
             self.play(FadeIn(circle, text))
             all_circles.append(VGroup(circle, text))
@@ -123,7 +147,7 @@ class Add31And54Dot(Scene):
         for circle in all_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 1), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * ((digits-i)*0.5+1)+ DOWN * 1), run_time=0.5)
             i-=1
 
         #把答案顯示
@@ -149,34 +173,16 @@ class Add31And54Dot(Scene):
         self.wait(1)
         self.play(FadeOut(exp_7))
         
-        self.play(Write(ans))
+        self.play(Write(sum))
         self.wait(2)
-        self.remove(title,ans)
 
 
-        ###減法
         # 創建題目（使用者輸入的問題）
-        n1 = n1+n2
-        n2 = 8
-        s1 = f"小明有{n1}個糖果, 他給了小红{n2}個, 現在剩下多少個?"
-        s2 = f"首先我們有{n1}顆糖果"
-        s3 = f"他給了小红{n2}顆"
-        s4 = f"我們可以把十位數跟個位數分開"
-        s5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
-        s6 = f"要從{n1}拿出{n2}個"
-        s7 = f"把要給的1拿出, 再把要給的10拿出"
-        s8 = f"最後再把剩下的十位數和個位數加起來"
-        s9 = f"因此我們最後剩下{n1 - n2}顆"
+        n1 = sum
+        n2 = n3
         
-        title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
-        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 4 + UP * 2)
-        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=BLUE).move_to(UP * 2)
-        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
-        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 )
-        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 3 + UP * 2)
-        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(RIGHT * 3 + UP * 2)
-        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
-        ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+        
+        
 
         # 打印文字
         self.play(Write(title))
@@ -189,7 +195,6 @@ class Add31And54Dot(Scene):
         self.wait(1)
         self.play(Write(exp_4))
 
-        '''
         #創建點
         units1 = n1 % 10
         tens1 = n1 // 10
@@ -216,8 +221,6 @@ class Add31And54Dot(Scene):
         pre_num = Text(str(n1), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         self.play(FadeIn(pre_num))
         
-        '''
-
         self.wait(1)
         self.play(FadeOut(exp_1), FadeOut(exp_2), FadeOut(exp_3), FadeOut(exp_4))
         self.play(Write(exp_5))
@@ -228,8 +231,9 @@ class Add31And54Dot(Scene):
         if units1<units2:
             tens1-=1
             units1+=10
-            text =  Text(f"因為個位數不夠減,我們必須把一個10拆開變成10個1", font="Noto Sans CJK", font_size=24).move_to(UP * 1)
-            self.play(FadeIn(text))
+            text1 =  Text(f"因為個位數不夠減", font="Noto Sans CJK", font_size=24).move_to(LEFT * 4)
+            text2 =  Text(f"我們必須把一個10拆開變成10個1", font="Noto Sans CJK", font_size=24).move_to(LEFT * 4 + DOWN * 1)
+            self.play(FadeIn(text1), FadeIn(text2))
             self.play(ten_circles1[tens1].animate.move_to(DOWN * 1.5))
             for j in range(j+10):
                 dot = Dot(point=((j+1) * 0.3 - 0.65,0.5, 0), color=YELLOW)
@@ -246,22 +250,22 @@ class Add31And54Dot(Scene):
         
         for dot in selected_dots:
             dot.set_color(BLUE)
-            self.play(dot.animate.move_to(RIGHT * (unit_dots1.index(dot) - units2/2) + DOWN * 1), run_time=0.5)
+            self.play(dot.animate.move_to(RIGHT * ((unit_dots1.index(dot) - units2/2)*0.5+2) + DOWN * 1), run_time=0.5)
         
         for circle in selected_circles:
             circle[0].set_color(BLUE)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * (ten_circles1.index(circle) - tens2/2) + DOWN * 1.5), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2/2)*0.5+2) + DOWN * 1.5), run_time=0.5)
         minus =Text("-", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1) 
         lat_num = Text(str(n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 2)
-        self.play(FadeIn(minus),FadeIn(lat_num),FadeOut(exp_5), FadeOut(exp_6),FadeOut(text))
+        self.play(FadeIn(minus),FadeIn(lat_num),FadeOut(exp_5), FadeOut(exp_6),FadeOut(text1),FadeOut(text2))
         self.wait(2)
         for dot in selected_dots:
             self.remove(dot)
         for circle in selected_circles:
             self.remove(circle)
 
-        #self.play(pre_num.animate.move_to(LEFT * 2 + DOWN * 2))
+        self.play(pre_num.animate.move_to(LEFT * 2 + DOWN * 2))
         self.play(minus.animate.move_to(LEFT * 1 + DOWN * 2))
         self.play(lat_num.animate.move_to(DOWN * 2))
 
@@ -273,19 +277,19 @@ class Add31And54Dot(Scene):
         self.play(FadeIn(text))
         for dot in remaining_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * (remaining_dots.index(dot) - units1/2)*0.5 + UP * 1), run_time=0.5)
+            self.play(dot.animate.move_to(RIGHT * (remaining_dots.index(dot) )*0.5 + UP * 1), run_time=0.5)
         
         for circle in remaining_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * (remaining_circles.index(circle) - tens1/2)), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * (remaining_circles.index(circle) )), run_time=0.5)
         self.wait(1)
 
         #打印答案
         ans_text = Text(str(n1-n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
         equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
 
-        self.play(FadeOut(text),FadeIn(ans_text),Write(exp_7))
+        self.play(FadeOut(text),FadeIn(ans_text))
         self.wait(1)
         self.play(equal_text.animate.move_to(RIGHT * 1 + DOWN * 2))
         self.play(ans_text.animate.move_to(RIGHT * 2 + DOWN * 2))
