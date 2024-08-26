@@ -15,14 +15,14 @@ class Add31And54Dot(Scene):
         s8 = f"最後再把十位數和個位數加起來"
         s9 = f"因此我們最後共有{n1 + n2}顆"
         
-        title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
-        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=RED).move_to(LEFT * 4 + UP * 2)
-        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=BLUE).move_to(UP * 2)
-        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
-        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4)
-        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
-        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
-        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=WHITE).move_to(LEFT * 2 + UP * 2)
+        title = Text(s1, font="Noto Sans CJK", font_size=33, color=YELLOW).to_edge(UP)
+        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 2)
+        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 )
+        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
+        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 2)
+        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
+        exp_7 = Text(s8, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
         ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
 
         #打印文字
@@ -98,7 +98,10 @@ class Add31And54Dot(Scene):
         self.play(Write(exp_6))
         for dot in all_dots:
             dot.set_color(GREEN)
-            self.play(dot.animate.move_to(RIGHT * (((digits)//2-i)*0.5) + UP *1), run_time=0.5)
+            if i>digits-10:
+                self.play(dot.animate.move_to(RIGHT * ((digits-i)*0.5+1) + UP *1), run_time=0.5)
+            else:
+                self.play(dot.animate.move_to(RIGHT * ((digits-(i+10))*0.5+1)), run_time=0.5)
             i-=1
 
         #進位時創建框
@@ -112,7 +115,7 @@ class Add31And54Dot(Scene):
             self.wait(2)
             for dot in selected_dots:
                 self.remove(dot)
-            circle = Circle(radius=0.3, color=RED).move_to((-2, 1, 0))
+            circle = Circle(radius=0.3, color=RED).move_to(rect.get_center())
             text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
             self.play(FadeIn(circle, text))
             all_circles.append(VGroup(circle, text))
@@ -124,7 +127,7 @@ class Add31And54Dot(Scene):
         for circle in all_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to(RIGHT * ((tens_digits)//2-i)+ DOWN * 1), run_time=0.5)
+            self.play(circle.animate.move_to(RIGHT * ((digits-i)*0.5+1)+ DOWN * 1), run_time=0.5)
             i-=1
 
         #把答案顯示
