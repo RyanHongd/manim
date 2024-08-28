@@ -6,7 +6,7 @@ class Add31And54Dot(Scene):
         self.create_texts()
 
         # 創建點和圈
-        self.create_dots_and_circles()
+        self.add_dots()
 
         # 顯示答案
         self.show_answer()
@@ -21,7 +21,7 @@ class Add31And54Dot(Scene):
         a4 = f"我們可以把十位數跟個位數分開"
         a5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
         a6 = f"{n2}可以被分成{n2 // 10}個10跟{n2 % 10}個1"
-        a7 = f"數一數共有多少個1跟10"
+        a7 = f"最後數一數共有多少個1跟10"
         a8 = f"因此我們最後共有{n1 + n2}顆"
 
         # 創建文字物件
@@ -50,7 +50,7 @@ class Add31And54Dot(Scene):
         self.play(Write(self.exp_6))
         self.wait(1)
 
-    def create_dots_and_circles(self):
+    def add_dots(self):
         # 創建點和圈
         n1 = 39
         n2 = 59
