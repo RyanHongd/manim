@@ -2,61 +2,43 @@ from manim import *
 
 class AlignText(Scene):
     def construct(self):
-        def text_animation():
-            n1 = 39
-            n2 = 59
-            a1 = f"小明有{n1}個糖果, 媽媽再給他{n2}個, 現在共有幾個?"
-            a2 = f"首先我們有{n1}顆糖果"
-            a3 = f"媽媽再給我們{n2}顆"
-            a4 = f"我們可以把十位數跟個位數分開"
-            a5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
-            a6 = f"{n2}可以被分成{n2 // 10}個10跟{n2 % 10}個1"
-            a7 = f"數一數共有多少個1跟10"
-            a8 = f"因此我們最後共有{n1 + n2}顆"
-            
-            title = Text(a1, font="Noto Sans CJK", font_size=33, color=YELLOW).to_edge(UP)
-            exp_1 = Text(a2, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 2)
-            exp_2 = Text(a3, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
-            exp_3 = Text(a4, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4)
-            exp_4 = Text(a5, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 1)
-            exp_5 = Text(a6, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + DOWN * 2)
-            exp_6 = Text(a7, font="Noto Sans CJK", font_size=30, color=GREEN).move_to(LEFT * 4 + UP * 1)
-            ans = Text(a8, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
-
-            # 創建單獨的動畫
-            animations = [
-                Write(title),
-                Wait(1),
-                Write(exp_1),
-                Wait(1),
-                Write(exp_2),
-                Wait(1),
-                Write(exp_3),
-                Wait(1),
-                Write(exp_4),
-                Wait(1),
-                Write(exp_5),
-                AnimationGroup(
-                    FadeOut(exp_1),
-                    FadeOut(exp_2),
-                    FadeOut(exp_3),
-                    FadeOut(exp_4),
-                    FadeOut(exp_5),
-                    lag_ratio=0
-                ),
-                Write(exp_6),
-                FadeOut(exp_6),
-                Write(ans)
-            ]
-            
-            return AnimationGroup(*animations, lag_ratio=0.5)
-
-        # 獲取組合的動畫
-        print_text = text_animation()
+        n1 = 37
+        n2 = 8
         
-        # 播放動畫
-        self.play(print_text)
+        s2 = f"小明現在有{n1}顆糖果"
+        s3 = f"他給了小红{n2}顆"
+        s4 = f"我們可以把十位數跟個位數分開"
+        s5 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
+        s6 = f"要從{n1}拿出{n2}個"
+        s7 = f"把要給的1拿出, 再把要給的10拿出"
+        s8 = f"數數看剩下共有幾個點" 
+        s9 = f"因此我們最後剩下{n1 - n2}顆"
+        
+        # 創建文字物件
+        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_7 = Text(s8, font="Noto Sans CJK", font_size=24, color=GREEN)
+        self.ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+
+        # 將文字物件放入 VGroup 並排列
+        exp_group_1 = VGroup(exp_1, exp_2, exp_3, exp_4,exp_5, exp_6, exp_7).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
+
+
+        # 移動到左側
+        exp_group_1.move_to(LEFT * 4)
+
+        
+        # 使用 Succession 逐一顯示每組文本
+        self.play(Succession(*[Write(text) for text in exp_group_1], lag_ratio=1))
+        self.play(FadeOut(exp_group_1))
+
         self.wait(2)
+
+
 
 
 

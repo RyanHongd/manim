@@ -8,6 +8,8 @@ class Subtract59From31Dot(Scene):
         # 創建點和圈
         self.minus_dots()
 
+        self.show_answer()
+        
     def create_texts(self):
         n1 = 61
         n2 = 39
