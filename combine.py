@@ -55,7 +55,7 @@ class Combine(Scene):
         # 創建 VGroup 並設置排列
         self.exp_g1 = VGroup(exp_1, exp_2, exp_3, exp_4, exp_5, exp_6)
         self.exp_g1.arrange(DOWN, aligned_edge=LEFT, buff=0.5)  # 垂直間隔0.5個單位
-        self.exp_g1.scale_to_fit_width(4)
+        self.exp_g1.scale_to_fit_width(5)
         self.exp_g1.move_to(LEFT * 4)
         
         # 顯示文字
@@ -162,7 +162,7 @@ class Combine(Scene):
 
     def show_answer1(self):
         # 顯示答案
-        self.ans1_text= Text(f"{self.n1}+{self.n2} = {sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * 2)
+        self.ans1_text= Text(f"{self.n1}+{self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * 2)
         
         # 顯示文字
         self.play(FadeIn(self.ans1_text))
@@ -173,9 +173,6 @@ class Combine(Scene):
         n1 = self.n2
         n2 = self.n3
         
-
-        n1 = 37
-        n2 = 8
         
         s2 = f"小明現在有{n1}顆糖果"
         s3 = f"他給了小红{n2}顆"
@@ -198,14 +195,12 @@ class Combine(Scene):
 
         # 將文字物件放入 VGroup 並排列
         self.exp_g2= VGroup(exp_1, exp_2, exp_3, exp_4,exp_5, exp_6, exp_7).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
-        self.exp_g2.scale_to_fit_width(4)
+        self.exp_g2.scale_to_fit_width(5)
         self.exp_g2.move_to(LEFT * 4)
         
         # 使用 Succession 逐一顯示每組文本
         self.play(Succession(*[Write(text) for text in self.exp_g2], lag_ratio=1))
         self.wait(5)
-        self.play(FadeOut(self.exp_g2))
-        self.wait(2)
 
         #借位時的文字解釋
         if n1 % 10< n2 % 10:
@@ -260,9 +255,7 @@ class Combine(Scene):
             circle[0].set_color(BLUE)
             circle[1].set_color(WHITE)
             self.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2/2)*0.5+2) + DOWN * 1.5), run_time=0.5)
-        self.minus =Text("-", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1) 
-        self.lat_num = Text(str(n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 2)
-        self.play(FadeIn(self.minus),FadeIn(self.lat_num))
+        
         self.wait(2)
         for dot in selected_dots:
             self.remove(dot)
