@@ -1,6 +1,6 @@
 from manim import *
 
-class Add31And54Dot(Scene):
+class add_over10(Scene):
     def construct(self):
         # 創建文字（使用者輸入的問題）
         self.create_texts()

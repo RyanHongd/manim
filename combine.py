@@ -162,32 +162,10 @@ class Combine(Scene):
 
     def show_answer1(self):
         # 顯示答案
-        n1 = self.n1
-        n2 = self.n2
-        sum = n1 + n2
-        digits = n1 % 10 + n2 % 10
-        tens_digits = n1 // 10 + n2 // 10
-        if digits>=10:
-            digits-=10
-            tens_digits+=1
-
-        digits_text = Text(str(digits), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP * 1)
-        add_text = Text("+", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
-        tens_digits_text = Text(str(tens_digits * 10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
-        equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
-        sum_text = Text(str(sum), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 3)
-        
-        self.play(Write(digits_text))
-        self.play(Write(add_text))
-        self.play(Write(tens_digits_text))
-        self.wait(1)
-        self.ans1 = VGroup(digits_text, add_text, tens_digits_text, equal_text, sum_text)
-        self.ans1.arrange(RIGHT,buff=0.5)  # 垂直間隔0.5個單位
-        self.ans1.scale_to_fit_width(4)
-        self.ans1.move_to(DOWN * 2)
+        self.ans1_text= Text(f"{self.n1}+{self.n2} = {sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * 2)
         
         # 顯示文字
-        self.play(Succession(*[Write(text) for text in self.ans1]))
+        self.play(FadeIn(self.ans1_text))
         self.wait(3)
 
 
@@ -242,6 +220,7 @@ class Combine(Scene):
         #創建點
         n1=self.sum
         n2=self.n3
+        self.dif=n1-n2
         units1 = n1 % 10
         tens1 = n1 // 10
         units2 = n2 % 10
@@ -253,25 +232,7 @@ class Combine(Scene):
         dot_group = VGroup(*unit_dots1)
         last_dot_position = dot_group[0].get_center()
 
-        '''
-        for j in range(units1):
-            dot = Dot(point=(j * 0.3 - 0.5, 0.5, 0), color=RED)
-            unit_dots1.append(dot)
         
-        for i in range(tens1):
-            circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.5, 0, 0))
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
-            ten_circles1.append(VGroup(circle, text))
-
-        # 打印所有點
-        for dot in unit_dots1:
-            self.play(FadeIn(dot), run_time=0.05)
-        for circle in ten_circles1:
-            self.play(FadeIn(circle), run_time=0.1)
-        
-        '''
-        self.pre_num = Text(str(n1), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
-        self.play(FadeIn(self.pre_num))
 
         #借位
         if units1<units2:
@@ -327,18 +288,7 @@ class Combine(Scene):
 
         #打印答案
     
-    def show_answer2(self): 
-        n1=self.sum
-        n2=self.n3   
-        ans_text = Text(str(n1-n2), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6)
-        equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
-
-        self.ans2 = VGroup(self.pre_num,self.minus,self.lat_num,equal_text,ans_text)
-        self.ans2.arrange(RIGHT,buff=0.5)  # 垂直間隔0.5個單位
-        self.ans2.scale_to_fit_width(4)
-        self.ans2.move_to(DOWN * 2.5)
-
-        self.play(Succession(*[Write(text) for text in self.ans2]))
-        self.wait(3)
-        self.play(Write(self.ans))
+    def show_answer2(self):
+        self.ans2_text= Text(f"{self.sum} - {self.n3} = {self.dif}", font="Noto Sans CJK", font_size=24).move_to(self.ans1_text.get_center()+DOWN*0.5)
+        self.play(FadeIn(self.ans2_text))
         self.wait(2)

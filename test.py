@@ -1,137 +1,184 @@
 from manim import *
-Y_offset = [1.5, 1, 0, -0.5, -1.5, -2]
-def ans_print(self,s8, s9):
-    ans = Text(s8, font="Noto Sans CJK", font_size=36, color=YELLOW).move_to((2, Y_offset[0], 0))
-    ans1 = Text(s9, font="Noto Sans CJK", font_size=36).next_to(ans, DOWN)
-    self.play(Write(ans))
-    self.wait(1)
-    self.play(Write(ans1))
-    self.wait(1)
 
-def description(self, s1, s2, s3, s4, s5, s6, s7):
-    title = Text(s1, font="Noto Sans CJK", font_size=36, color=YELLOW).to_edge(UP)
-    title.scale_to_fit_width(12)
-    exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=BLUE).next_to(title, DOWN)
-    exp_2 = Text(s3)
-    exp_3 = Text(s4)
-    exp_4 = Text(s5)
-    exp_5 = Text(s6)
-    exp_6 = Text(s7)
-    expG = VGroup(exp_2, exp_3, exp_4, exp_5, exp_6)
-    expG.arrange(DOWN, buff=0.8)
-    expG.scale_to_fit_width(4)
-    expG.set_color(GREEN)
-    expG.set(font_size=30)
-    expG.to_edge(LEFT)
-
-    # 打印文字
-    self.play(Write(title))
-    self.wait(1)
-    self.play(Write(exp_1))
-    self.wait(1)
-    self.play(Write(expG))
-    self.wait(1)
-
-def create_dot(self, units1, Pcolor, Y_offset):
-    unit_dots1 = []
-    for i in range(units1):
-        dot = Dot(point=(i * 0.3 - 0.65, Y_offset, 0), color=Pcolor)
-        unit_dots1.append(dot)
-        self.play(FadeIn(dot), run_time=0.1)
-    self.wait(1)
-    return unit_dots1
-
-def create_10dot(self, tens1, Pcolor, Y_offset):
-    ten_circles1 = []
-    for i in range(tens1):
-        circle = Circle(radius=0.3, color=Pcolor).move_to((i * 0.6 - 0.65, Y_offset, 0))
-        text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
-        ten_circles1.append(VGroup(circle, text))
-        self.play(FadeIn(ten_circles1[i]), run_time=0.1)
-    self.wait(1)
-    return ten_circles1
-
-def draw_dot(self, n1, n2):
-    units1 = n1 % 10
-    tens1 = n1 // 10
-    units2 = n2 % 10
-    tens2 = n2 // 10
-
-
-    unit_dots1 = create_dot(self, units1, RED, Y_offset[0])
-    ten_circles1 = create_10dot(self, tens1, RED, Y_offset[1])
-    unit_dots2 = create_dot(self, units2, BLUE, Y_offset[2])
-    ten_circles2 = create_10dot(self, tens2, BLUE, Y_offset[3])
-
-    all_dots = unit_dots1 + unit_dots2
-    all_circles = ten_circles1 + ten_circles2
-    return all_dots, all_circles
-
-class Add_Function(Scene):
+class Combine(Scene):
     def construct(self):
-        # 创造文字（用户输入的问题）
-        add_v1 = 26
-        add_v2 = 17
-        Add_result = add_v1 + add_v2
-        s1 = f"小名有26塊錢，媽媽再給他17塊錢，曉華又拿走他8塊錢，請問小名最後有幾塊錢?"
-        s2 = f"首先小名有{add_v1}塊錢 , 媽媽再給我們{add_v2}塊錢"
-        s3 = f"我們可以把十位數跟個位數分開"
-        s4 = f"{add_v1}可以被分成{add_v1 // 10}個10跟{add_v1 % 10}個1"
-        s5 = f"{add_v2}可以被分成{add_v2 // 10}個10跟{add_v2 % 10}個1"
-        s6 = f"把所有的1加起來,\n再把所有的10加起來"
-        s7 = f"最後再把十位數和個位數加起來"
-        s8 = f"因此我們共有{add_v1 + add_v2}塊錢"
-        s9 = f"{add_v1} + {add_v2} = {Add_result}"
-        # print 題目
-        description(self, s1, s2, s3, s4, s5, s6, s7)
+        # 創建文字（使用者輸入的問題）
+        self.create_title()
 
-        all_dots, all_circles = draw_dot(self, add_v1, add_v2)
+        # 創建文字和點的部分
+        self.create_texts1()
+        self.add_dots()
+
+        # 顯示第一次加法答案
+        self.show_answer1()
+
+        # 創建扣掉的部分
+        self.create_texts2()
+        self.minus_dots()
+
+        # 顯示最終答案
+        self.show_answer2()
+    
+    def create_title(self):
+        self.n1 = 31
+        self.n2 = 10
+        self.n3 = 8
+        
+        title = f"小名有{self.n1}塊錢，媽媽再給他{self.n2}塊錢，曉華又拿走他{self.n3}塊錢，請問小名最後有幾塊錢？"
+        self.title = Text(title, font="Noto Sans CJK", font_size=33, color=YELLOW).to_edge(UP)
+        self.title.scale_to_fit_width(14)
+        self.play(Write(self.title))
+
+    def create_texts1(self):
+        # 定義問題和步驟文字
+        n1 = self.n1
+        n2 = self.n2
+        
+        text1 = f"首先我們有{n1}塊錢"
+        text2 = f"媽媽再給我們{n2}塊"
+        text3 = f"我們可以把十位數跟個位數分開"
+        text4 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
+        text5 = f"{n2}可以被分成{n2 // 10}個10跟{n2 % 10}個1"
+        text6 = f"最後數一數共有多少個1跟10"
+        text7 = f"因此我們共有{n1 + n2}塊"
+
+        # 創建文字物件
+        steps = [Text(txt, font="Noto Sans CJK", font_size=30, color=GREEN) for txt in [text1, text2, text3, text4, text5, text6]]
+        self.answer_text = Text(text7, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+
+        # 顯示文字
+        self.exp_g1 = VGroup(*steps).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
+        self.exp_g1.scale_to_fit_width(4)
+        self.exp_g1.move_to(LEFT * 4)
+        
+        self.play(Succession(*[Write(step) for step in self.exp_g1]))
+        self.wait(3)
+        self.play(FadeOut(self.exp_g1))
+
+    def add_dots(self):
+        n1 = self.n1
+        n2 = self.n2
+        units1, tens1 = n1 % 10, n1 // 10
+        units2, tens2 = n2 % 10, n2 // 10
+        self.sum = n1 + n2
+        
+        # 創建個位數和十位數的點和圈
+        unit_dots1 = [Dot(point=(i * 0.3 - 0.65, 0.5, 0), color=RED) for i in range(units1)]
+        ten_circles1 = [VGroup(Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0)), Text("10", font="Noto Sans CJK", font_size=24).move_to((i * 0.6 - 0.65, 0, 0))) for i in range(tens1)]
+        
+        unit_dots2 = [Dot(point=(i * 0.3 - 0.65, -1, 0), color=BLUE) for i in range(units2)]
+        ten_circles2 = [VGroup(Circle(radius=0.3, color=BLUE).move_to((i * 0.6 - 0.65, -1.5, 0)), Text("10", font="Noto Sans CJK", font_size=24).move_to((i * 0.6 - 0.65, -1.5, 0))) for i in range(tens2)]
+        
+        # 顯示點
+        for dot in unit_dots1 + ten_circles1 + unit_dots2 + ten_circles2:
+            self.play(FadeIn(dot), run_time=0.1)
 
         # 移動個位數的點
-        i = 0
-        for dot in all_dots:
-            dot.set_color(GREEN)
-            self.play(dot.animate.move_to((i * 0.3 - 0.65, Y_offset[4], 0)), run_time=0.5)
-            i += 1
-        #移動十位數的點
-        i = 0
-        for circle in all_circles:
-            circle[0].set_color(GREEN)
-            circle[1].set_color(WHITE)
-            self.play(circle.animate.move_to((i * 0.6 - 0.65, Y_offset[5], 0)), run_time=0.5)
-            i += 1
+        self.all_dots = unit_dots1 + unit_dots2
+        self.all_circles = ten_circles1 + ten_circles2
+        digits = units1 + units2
+        tens_digits = tens1 + tens2
+        
+        i = digits
+        for dot in self.all_dots:
+            if i > digits - 10:
+                self.play(dot.animate.move_to(RIGHT * ((digits - i) * 0.5 + 1) + UP * 1), run_time=0.5)
+            else:
+                self.play(dot.animate.move_to(RIGHT * ((digits - (i + 10)) * 0.5 + 1)), run_time=0.5)
+            i -= 1
 
-        digits = len(all_dots)
-        tens_digits = len(all_circles)
+        # 十進位
         if digits >= 10:
-            digits-=10
-            tens_digits+=1 
-            selected_dots = all_dots[:10]
-            dots_group = VGroup(*selected_dots)
-        # 获取前10个dots的坐标
-            dot_positions = [dot.get_center() for dot in selected_dots]
-
-            # 创建由前10个dots连接的红线
-            red_line = Line(dot_positions[0], dot_positions[-1], color=RED, stroke_width=4)
-            for i in range(1, len(dot_positions) - 1):
-                red_line.add_points_as_corners([dot_positions[i]])
-
-            self.play(Create(red_line))
-            self.wait(2)
+            selected_dots = self.all_dots[:10]
+            rect = SurroundingRectangle(VGroup(*selected_dots), color=BLUE, buff=0.3)
+            self.play(Create(rect))
             for dot in selected_dots:
                 self.remove(dot)
-            last_circle_group = all_circles[-1] if all_circles else None
-            if last_circle_group:
-                circle = Circle(radius=0.3, color=RED).next_to(last_circle_group, RIGHT)
-            else:
-                # 如果列表为空，直接在初始位置创建circle
-                circle = Circle(radius=0.3, color=RED)
+            circle = Circle(radius=0.3, color=RED).move_to(rect.get_center())
             text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
             self.play(FadeIn(circle, text))
-            all_circles.append(VGroup(circle, text))
-            self.wait(1)
+            self.all_circles.append(VGroup(circle, text))
+            self.play(FadeOut(rect))
 
-            ans_print(self,s8, s9) 
+        # 移動十位數
+        i = tens_digits
+        for circle in self.all_circles:
+            self.play(circle.animate.move_to(RIGHT * ((digits - i) * 0.5 + 1) + DOWN * 1), run_time=0.5)
+            i -= 1
+
+    def show_answer1(self):
+        n1 = self.n1
+        n2 = self.n2
+        digits = n1 % 10 + n2 % 10
+        tens_digits = n1 // 10 + n2 // 10
+        if digits >= 10:
+            digits -= 10
+            tens_digits += 1
+
+        digits_text = Text(str(digits), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP * 1)
+        tens_digits_text = Text(str(tens_digits * 10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
+        equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
+        sum_text = Text(str(self.sum), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 3)
+
+        self.ans1 = VGroup(digits_text, tens_digits_text, equal_text, sum_text).arrange(RIGHT, buff=0.5)
+        self.ans1.scale_to_fit_width(4)
+        self.ans1.move_to(DOWN * 2)
+        
+        self.play(Succession(*[Write(text) for text in self.ans1]))
+        self.wait(3)
+
+    def create_texts2(self):
+        n1 = self.sum
+        n2 = self.n3
+
+        s1 = f"小名現在有{n1}塊錢"
+        s2 = f"曉華拿走了{n2}塊"
+        s3 = f"我們可以把十位數跟個位數分開"
+        s4 = f"{n1}可以被分成{n1 // 10}個10跟{n1 % 10}個1"
+        s5 = f"要從{n1}拿出{n2}個"
+        s6 = f"把要給的1拿出, 再把要給的10拿出"
+        s7 = f"數數看剩下共有多少個"
+
+        steps = [Text(txt, font="Noto Sans CJK", font_size=30, color=GREEN) for txt in [s1, s2, s3, s4, s5, s6]]
+        self.exp_g2 = VGroup(*steps).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
+        self.exp_g2.scale_to_fit_width(4)
+        self.exp_g2.move_to(LEFT * 4)
+
+        self.play(Succession(*[Write(step) for step in self.exp_g2]))
+        self.wait(3)
+        self.play(FadeOut(self.exp_g2))
+
+    def minus_dots(self):
+        n1 = self.sum
+        n2 = self.n3
+        
+        units1, tens1 = n1 % 10, n1 // 10
+        units2, tens2 = n2 % 10, n2 // 10
+
+        dots_to_remove = self.all_dots[-units2:]
+        for dot in dots_to_remove:
+            self.play(FadeOut(dot), run_time=0.1)
+        
+        for i in range(tens2):
+            self.play(FadeOut(self.all_circles[-(i+1)]), run_time=0.1)
+
+        remaining_units = units1 - units2
+        remaining_tens = tens1 - tens2
+
+        remaining_units_text = Text(str(remaining_units), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + UP * 1)
+        remaining_tens_text = Text(str(remaining_tens * 10), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 6 + DOWN * 1)
+        equal_text = Text("=", font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 2.5)
+        final_sum = Text(str(remaining_tens * 10 + remaining_units), font="Noto Sans CJK", font_size=40).move_to(RIGHT * 4 + DOWN * 3)
+
+        self.ans2 = VGroup(remaining_units_text, remaining_tens_text, equal_text, final_sum).arrange(RIGHT, buff=0.5)
+        self.ans2.scale_to_fit_width(4)
+        self.ans2.move_to(DOWN * 2)
+
+    def show_answer2(self):
+        self.play(Succession(*[Write(text) for text in self.ans2]))
+        self.wait(3)
+
+
 
 
 
