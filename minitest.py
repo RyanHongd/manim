@@ -2,12 +2,19 @@ import os
 from manim import *
 import subprocess
 import platform
+from add_over10 import add_over10
 
 class MainScene(Scene):
     def construct(self):
-        text=Text("Success", font="Noto Sans CJK", font_size=24)
-        self.play(Write(text))
-        self.wait(5)
+        # 創建 add_over10 的實例並調用它的 construct 方法
+        scene = add_over10()
+        scene.construct()  # 執行 add_over10 內的動畫邏輯
+        
+        # 如果你想在 MainScene 中加入更多動畫，則可以在這裡繼續
+        # 例如：
+
+
+
 
 if __name__ == "__main__":
     config.media_dir = "./output_media"
