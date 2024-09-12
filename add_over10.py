@@ -1,11 +1,11 @@
 from manim import *
 
 class add_over10:
+    def __init__(self, n1, n2):
+        self.n1 = n1
+        self.n2 = n2
+        self.sum = n1 + n2
     def animation(self, scene):
-        self.n1 = 16
-        self.n2 = 17
-        self.sum = self.n1 + self.n2
-        
         # 創建文字
         self.create_texts1(scene)
 

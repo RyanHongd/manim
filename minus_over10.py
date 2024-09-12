@@ -1,11 +1,11 @@
 from manim import *
 
 class minus_over10:
+    def __init__(self, n1, n2):
+        self.n1 = n1
+        self.n2 = n2
+        self.dif = n1 - n2
     def animation(self, scene):
-        self.n1 = 33
-        self.n2 = 8
-        self.dif = self.n1 - self.n2
-
         # 創建文字
         self.create_texts2(scene)
 

@@ -7,9 +7,11 @@ from minus_over10 import minus_over10
 
 class MainScene2(Scene):
     def construct(self):
+        n1, n2 = 16, 17  
+        m1, m2 = 33, 8
         # 創建 add_over10 和 minus_over10 的實例
-        add_scene = add_over10()
-        minus_scene = minus_over10()
+        add_scene = add_over10(n1, n2)
+        minus_scene = minus_over10(m1, m2)
 
         # 執行 add_over10 的動畫
         add_scene.animation(self)
