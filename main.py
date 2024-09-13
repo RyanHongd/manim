@@ -11,28 +11,25 @@ class MainScene2(Scene):
         n1, n2 = 24, 13  
         m1, m2 = 33, 8
         title = f"小明有24個糖果, 媽媽給他17個,小紅又拿走他8個糖，現在共有幾個?"
-        pos = UP
-        width=14
+        title_pos = UP
+        title_width = 14
 
-        text1 = write_text(title,pos,width)
+        answer = f"因此答案是25個"
+        answer_pos = DOWN
+        answer_width = 4
+
+        title = write_text(title,title_pos,title_width)
         # 創建 add_over10 和 minus_over10 的實例
         add_scene = add_over10(n1, n2)
         minus_scene = minus_over10(m1, m2)
+        answer = write_text(answer,answer_pos,answer_width)
 
         # 執行動畫
-        text1.animation(self)
+        title.animation(self)
         add_scene.animation(self)
         minus_scene.animation(self)
+        answer.animation(self)
         
-    def create_title(self):
-        self.n1=24
-        self.n2=13
-        self.n3=8
-        
-        title = f"小明有{self.n1}個糖果, 媽媽給他{self.n2}個,小紅又拿走他{self.n3}塊錢 現在共有幾個?"
-        self.title = Text(title, font="Noto Sans CJK", font_size=33, color=YELLOW).to_edge(UP)
-        self.title.scale_to_fit_width(14)
-        self.play(Write(self.title))
 
 
 
