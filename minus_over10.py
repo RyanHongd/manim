@@ -45,7 +45,8 @@ class minus_over10:
         
         # 使用 Succession 逐一顯示每組文本
         scene.play(Succession(*[Write(text) for text in self.exp_g2], lag_ratio=1))
-        scene.wait(5)
+        scene.wait(3)
+        scene.play(FadeOut(self.exp_g2))
 
         # 借位時的文字解釋
         if self.n1 % 10 < self.n2 % 10:
@@ -83,8 +84,10 @@ class minus_over10:
         scene.wait(1)
 
         dot_group = VGroup(*unit_dots1)
-        last_dot_position = dot_group[0].get_center()
-
+        if units1!=0:
+            last_dot_position = dot_group[0].get_center()
+        else:
+            last_dot_position = (0,0,0)
         # 借位
         if units1 < units2:
             tens1 -= 1

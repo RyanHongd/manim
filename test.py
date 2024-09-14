@@ -8,37 +8,42 @@ from write import write_text
 
 class MainScene2(Scene):
     def construct(self):
-        # 更新參數
-        n1, n2 = 30, 15  # 加法參數
-        m1, m2 = 45, 8   # 減法參數 (加法的結果 30 + 15 = 45)
-
-        # 更新標題和答案
-        title = f"小名有30塊錢，媽媽再給他15塊錢，曉華又拿走他8塊錢，請問小名最後有幾塊錢?"
+        # 題目參數設置
+        initial_value = 30  # 小名有30塊錢
+        minus_value = 8     # 曉華拿走他8塊錢
+        add_value = 15      # 媽媽再給他15塊錢
+        
+        # 題目文字
+        title = f"小名有30塊錢, 曉華拿走他8塊錢, 媽媽再給他15塊錢，現在共有幾塊錢?"
         title_pos = UP
         title_width = 14
 
+        # 計算結果的文字
         answer = f"因此答案是37塊錢"
         answer_pos = DOWN
         answer_width = 4
 
-        # 使用 write_text 函式顯示標題
+        # 顯示題目
         title = write_text(title, title_pos, title_width)
 
-        # 創建 add_over10 和 minus_over10 的實例
-        add_scene = add_over10(n1, n2)
-        minus_scene = minus_over10(m1, m2)
+        # 執行減法運算（30 - 8 = 22）
+        minus_scene = minus_over10(initial_value, minus_value)
+        
+        # 執行加法運算（22 + 15 = 37）
+        add_scene = add_over10(30 - minus_value, add_value)
 
-        # 使用 write_text 函式顯示答案
+        # 顯示答案
         answer = write_text(answer, answer_pos, answer_width)
 
         # 執行動畫
         title.animation(self)
-        add_scene.animation(self)
         minus_scene.animation(self)
+        add_scene.animation(self)
         answer.animation(self)
+        
 
 if __name__ == "__main__":
-    config.media_dir = "./test_media"
+    config.media_dir = "./output_media"
     config.pixel_height = 1080
     config.pixel_width = 1920
     config.frame_rate = 60
@@ -57,6 +62,8 @@ if __name__ == "__main__":
         subprocess.run(["open", output_video_path])
     elif platform.system() == "Linux":  # Linux
         subprocess.run(["xdg-open", output_video_path])
+
+
 
 
 
