@@ -2,32 +2,38 @@ import os
 from manim import *
 import subprocess
 import platform
-from add_over10 import add_over10
-from minus_over10 import minus_over10
+from add import add
+from minus import minus
+from multiplication import multiplication
+from division import division
 from write import write_text
 
 class MainScene2(Scene):
     def construct(self):
-        add_value1, add_value2 = 24, 17  # 媽媽給他15塊錢
-        minus_value1, minus_value2 = 41, 8
-        title = f"小明有24個糖果, 媽媽給他17個,小紅又拿走他8個糖，現在共有幾個?"
+        add_value1, add_value2, add_pos = 6, 2, 1  # 媽媽給他15塊錢
+        minus_value1, minus_value2, minus_pos = 0, 0, 0
+        mup_value1, mup_value2, mup_pos = 8, 4, 2
+
+        title = f"每組有6個男生，2個女生，有4組，請問總共有幾個人?"
         title_pos = UP
         title_width = 14
 
-        answer = f"因此答案是33個"
+        answer = f"因此答案是32個"
         answer_pos = DOWN
         answer_width = 4
 
         title = write_text(title,title_pos,title_width)
         # 創建 add_over10 和 minus_over10 的實例
-        add_scene = add_over10(add_value1, add_value2)
-        minus_scene = minus_over10(minus_value1, minus_value2)
+        add_scene = add(add_value1, add_value2, add_pos)
+        #minus_scene = minus(minus_value1, minus_value2, minus_pos)
+        multiplication_scene = multiplication(mup_value1, mup_value2, mup_pos)
         answer = write_text(answer,answer_pos,answer_width)
 
         # 執行動畫
         title.animation(self)
         add_scene.animation(self)
-        minus_scene.animation(self)
+        #minus_scene.animation(self)
+        multiplication_scene.animation(self)
         answer.animation(self)
         
 

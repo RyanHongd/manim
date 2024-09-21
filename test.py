@@ -2,8 +2,8 @@ import os
 from manim import *
 import subprocess
 import platform
-from add_over10 import add_over10
-from minus_over10 import minus_over10
+from add import add_over10
+from minus import minus_over10
 from write import write_text
 
 class MainScene2(Scene):
