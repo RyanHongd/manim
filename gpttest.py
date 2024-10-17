@@ -10,16 +10,16 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4-turbo",
     messages = [
         {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
-        {"role": "user", "content": """我需要生成一個 Python 迴圈，具體要求如下：
-        
-        1. 現在有題目是:小名有30塊錢，曉華拿走他8塊錢，剩下的錢要分給4個人，每個人可以拿到幾塊錢?
-         請你幫我調整參數和函式的順序，以符合題目的要求，其他都不要更改，你只能改MainScen2裡的內容，最後給我一個manim影片的程式碼 
-        *write_text處理文字
-        *由於這是組合運算，所以之後的運算方式的參數會有一個來自前面運算
+        {"role": "user", "content": """現在有題目是:小名有30塊錢，曉華拿走他8塊錢，剩下的錢要分給4個人，每個人可以拿到幾塊錢?
+        *請你幫我調整參數和函式的順序，以符合題目的要求，其他都不要更改，你只能改MainScen2裡的內容，最後給我一個manim影片的程式碼 
+        *add處理加法，minus處理減法，multiplication處理乘法，division處理除法，write_text處理文字
+        *由於這是組合運算，所以第二個運算方式的參數會有一個來自前面運算
         *請你把不需要的運算方式刪掉，同時更改pos，以符合運算順序
+        *請妳回覆時不要給我多餘的文字，直接給我程式碼
+        以下是要回覆的文字
         import os
         from manim import *
         import subprocess
@@ -33,18 +33,18 @@ response = client.chat.completions.create(
         class MainScene2(Scene):
             def construct(self):
                 #載入不同函式運算時使用的參數，pos是運算的順序
-                add_value1, add_value2, add_pos = 16, 17, 1  
+                add_value1, add_value2, add_pos = 0, 0, 0  
                 min_value1, min_value2, min_pos = 0, 0, 0
                 mup_value1, mup_value2, mup_pos = 0, 0, 0
-                div_value1, div_value2, div_pos = 33, 4, 2
+                div_value1, div_value2, div_pos = 0, 0, 0
 
                 #標題的內容
-                title = f"現在有16個男生，17個女生，要把他們每4人分一組，請問可以分成幾組?"
+                title = f"放入題目"
                 title_pos = UP
                 title_width = 14
 
                 #答案的內容
-                answer = f"因此答案是8組，剩下一個人"
+                answer = f"放入答案"
                 answer_pos = DOWN
                 answer_width = 4
 
@@ -88,8 +88,6 @@ response = client.chat.completions.create(
             elif platform.system() == "Linux":  # Linux
                 subprocess.run(["xdg-open", output_video_path])
                 subprocess.run(["xdg-open", output_video_path])
-
-        2. 請注意，回應中僅需包含可執行的程式碼，不要有額外的文字。
                 """}
     ]
 
