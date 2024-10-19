@@ -13,11 +13,29 @@ client = OpenAI(
     api_key = api_key
 )
 
+def read_file():
+    try:
+        # 開啟文件並讀取內容
+        with open('inputtest.txt', 'r', encoding='utf-8') as file:
+            content = file.read()
+        
+        # 將內容輸出
+        print("文件內容如下：")
+        print(content)
+        return content
+    except FileNotFoundError:
+        print("找不到 input.txt 文件，請確認檔案是否存在。")
+    except Exception as e:
+        print(f"發生錯誤: {e}")
+
+# 調用函數來讀取並輸出文件內容
+content=read_file()
 
 # 建立視窗應用程式
 def send_to_gpt():
     user_input = user_input_textbox.get("1.0", tk.END).strip()
-    if user_input:
+    combined_input = f"{user_input},{content}"
+    if combined_input:
         try:
             # 呼叫 OpenAI GPT API
             response = client.chat.completions.create(
@@ -25,7 +43,7 @@ def send_to_gpt():
                 messages = [
 
                     {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": user_input},
+                    {"role": "user", "content": combined_input},
                 ]
             )
             gpt_response = response.choices[0].message.content
@@ -33,6 +51,15 @@ def send_to_gpt():
             # 清除輸出框並顯示 GPT 的回應
             output_textbox.delete("1.0", tk.END)
             output_textbox.insert(tk.END, gpt_response)
+
+            output = response.choices[0].message.content.strip()
+            output = output[9:-3]
+
+            print(output)
+            try:
+                exec(output)
+            except Exception as e:
+                print(f"執行生成的程式碼時發生錯誤: {e}")
         except Exception as e:
             output_textbox.delete("1.0", tk.END)
             output_textbox.insert(tk.END, f"Error: {e}")
