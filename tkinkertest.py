@@ -3,6 +3,15 @@ import os
 import tkinter as tk
 from tkinter import scrolledtext
 from dotenv import load_dotenv
+from manim import UP,DOWN
+from manim import *
+import subprocess
+import platform
+from add import add
+from minus import minus
+from multiplication import multiplication
+from division import division
+from write import write_text
 
 # 載入 .env 檔案中的 API 金鑰
 load_dotenv()
@@ -39,7 +48,7 @@ def send_to_gpt():
         try:
             # 呼叫 OpenAI GPT API
             response = client.chat.completions.create(
-                model="gpt-4-turbo",
+                model="gpt-4o",
                 messages = [
 
                     {"role": "system", "content": "You are a helpful assistant."},
