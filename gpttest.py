@@ -30,7 +30,7 @@ content=read_file()
 
 
 response = client.chat.completions.create(
-    model="gpt-4-turbo",
+    model="gpt-4o-2024-05-13",
     messages = [
         {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
         {"role": "user", "content": content}
