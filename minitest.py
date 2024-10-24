@@ -1,23 +1,61 @@
-from openai import OpenAI
-from dotenv import load_dotenv
 import os
+from manim import *
+import subprocess
+import platform
+from add import add
+from division import division
+from write import write_text
 
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+class MainScene2(Scene):
+    def construct(self):
+        #載入不同函式運算時使用的參數
+        add_value1, add_value2, add_pos = 16, 17, 0  
+        div_value1, div_value2, div_pos = add_value1 + add_value2, 4, 1
 
-client = OpenAI(
-    api_key = api_key
-)
+        #標題的內容
+        title = f"將16個男生和17個女生每4人分一組"
+        title_pos = UP
+        title_width = 14
 
-response = client.chat.completions.create(
-    model="gpt-4-turbo",
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
-        {"role": "user", "content": """現在有題目是:小名有30塊錢，曉華拿走他8塊錢，剩下的錢要分給4個人，每個人可以拿到幾塊錢?
-        """},
-    ]
+        #答案的內容
+        answer = f"可以分成{div_value1 // div_value2}組"
+        answer_pos = DOWN
+        answer_width = 14
 
-)
+        #創建需要的場景
+        title = write_text(title, title_pos, title_width)
+        add_scene = add(add_value1, add_value2, add_pos)
+        division_scene = division(div_value1, div_value2, div_pos)
+        answer = write_text(answer, answer_pos, answer_width)
+
+        # 執行動畫
+        title.animation(self)
+        add_scene.animation(self)
+        division_scene.animation(self)
+        answer.animation(self)
+        
+
+#下面的內容固定，不會影響影片的內容
+if __name__ == "__main__":
+    config.media_dir = "./output_media"
+    config.pixel_height = 1080
+    config.pixel_width = 1920
+    config.frame_rate = 60
+
+    # 渲染影片
+    scene = MainScene2()
+    scene.render()
+
+    # 找到生成的影片路徑
+    output_video_path = os.path.join(config.media_dir, "videos", "1080p60", "MainScene2.mp4")
+    
+    # 自動打開影片
+    if platform.system() == "Windows":
+        os.startfile(output_video_path)
+    elif platform.system() == "Darwin":
+        subprocess.run(["open", output_video_path])
+    elif platform.system() == "Linux":
+        subprocess.run(["xdg-open", output_video_path])
 
 
 
