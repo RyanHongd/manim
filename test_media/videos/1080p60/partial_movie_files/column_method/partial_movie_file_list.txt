@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/User/Desktop/獨立研究/manim/test_media/videos/1080p60/partial_movie_files/column_method/3529212410_580529642_223132457.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/test_media/videos/1080p60/partial_movie_files/column_method/3040924799_1141282389_2664988097.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/test_media/videos/1080p60/partial_movie_files/column_method/3040924799_3299528237_1277842361.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/test_media/videos/1080p60/partial_movie_files/column_method/3040924799_1141282389_1539988661.mp4'
