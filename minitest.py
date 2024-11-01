@@ -1,61 +1,11 @@
-import os
-from manim import *
-import subprocess
-import platform
-from add import add
-from division import division
-from write import write_text
-
-class MainScene2(Scene):
-    def construct(self):
-        #載入不同函式運算時使用的參數
-        add_value1, add_value2, add_pos = 16, 17, 0  
-        div_value1, div_value2, div_pos = add_value1 + add_value2, 4, 1
-
-        #標題的內容
-        title = f"將16個男生和17個女生每4人分一組"
-        title_pos = UP
-        title_width = 14
-
-        #答案的內容
-        answer = f"可以分成{div_value1 // div_value2}組"
-        answer_pos = DOWN
-        answer_width = 14
-
-        #創建需要的場景
-        title = write_text(title, title_pos, title_width)
-        add_scene = add(add_value1, add_value2, add_pos)
-        division_scene = division(div_value1, div_value2, div_pos)
-        answer = write_text(answer, answer_pos, answer_width)
-
-        # 執行動畫
-        title.animation(self)
-        add_scene.animation(self)
-        division_scene.animation(self)
-        answer.animation(self)
-        
-
-#下面的內容固定，不會影響影片的內容
-if __name__ == "__main__":
-    config.media_dir = "./output_media"
-    config.pixel_height = 1080
-    config.pixel_width = 1920
-    config.frame_rate = 60
-
-    # 渲染影片
-    scene = MainScene2()
-    scene.render()
-
-    # 找到生成的影片路徑
-    output_video_path = os.path.join(config.media_dir, "videos", "1080p60", "MainScene2.mp4")
-    
-    # 自動打開影片
-    if platform.system() == "Windows":
-        os.startfile(output_video_path)
-    elif platform.system() == "Darwin":
-        subprocess.run(["open", output_video_path])
-    elif platform.system() == "Linux":
-        subprocess.run(["xdg-open", output_video_path])
+import math
+n1=12345
+list1 = []
+t = math.floor(math.log10(abs(n1))) + 1
+for i in range(t):
+    digit = (n1 // (10 ** i)) % 10
+    list1.insert(0, digit)
+print(list1)
 
 
 
