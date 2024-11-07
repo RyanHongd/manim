@@ -6,8 +6,8 @@ import math
 
 class column_method(Scene):
     def construct(self):
-        n1 = 1000
-        n2 = 25
+        n1 = 10100
+        n2 = 8025
         self.cal_method = 2
 
         self.n1 = n1
@@ -37,6 +37,7 @@ class column_method(Scene):
 
     def method(self):
         match self.cal_method:
+            #加法
             case 1:
                 ans = self.n1 + self.n2
                 carry = 0  # 記錄進位
@@ -95,6 +96,8 @@ class column_method(Scene):
                 for carry_text in carry_texts:
                     self.play(FadeOut(carry_text), run_time=0.5)
                 self.wait(2)
+            
+            #減法
             case 2:
                 ans = self.n1 - self.n2
                 borrow = 0  # 記錄退位
@@ -126,42 +129,87 @@ class column_method(Scene):
                     self.play(FadeIn(num), run_time=0.1)
                 self.wait(2)
 
+
                 # 計算答案並處理退位
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1  
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
                     self.list3.append(digit)
 
-                bor_time = min(self.t1, self.t2)
-                for i in range(bor_time):
-                    minuend_digit = self.list1[i] if i < self.t1 else 0
-                    subtrahend_digit = self.list2[i] if i < self.t2 else 0
-                    
-                    # 若被減數不足以減去減數，加上退位值
-                    if minuend_digit - borrow < subtrahend_digit:
-                        num_pos = printlist1[i+1]
-                        line_start = num_pos.get_corner(UP + LEFT)  # 左上角
-                        line_end = num_pos.get_corner(DOWN + RIGHT)  # 右下角
-                        strike_through = Line(line_start, line_end, color=RED, stroke_width=5)
+                cal_time = self.t2
+                for i in range(cal_time):
+                    if self.list1[i] < self.list2[i] :   
+                        if self.list1[i+1] > 0:
+                            #斜線
+                            num_pos = printlist1[i+1]
+                            line_start = num_pos.get_corner(UP + LEFT)  # 左上角
+                            line_end = num_pos.get_corner(DOWN + RIGHT)  # 右下角
+                            strike_through = Line(line_start, line_end, color=RED, stroke_width=5)
+                            crossed_number = VGroup(num_pos, strike_through)
+                            self.play(FadeIn(crossed_number))
+                            
+                            borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((((i-1) * -0.5) + 3.0, 0.5, 0))
+                            borrow_texts.append(borrow_text)
+                            self.play(FadeIn(borrow_text), run_time=0.5)
 
-                        # 將數字和斜線組成一組
-                        crossed_number = VGroup(num_pos, strike_through)
-                        self.play(FadeIn(crossed_number))
-                        
-                        # 進行退位處理
-                        minuend_digit += 10
-                        borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((((i-1) * -0.5) + 3.0, 0.5, 0))
-                        borrow_texts.append(borrow_text)
-                        self.play(FadeIn(borrow_text), run_time=0.5)
-                        borrow = 1  # 設置退位標記
+                            self.play(FadeOut(crossed_number))
+                            replace_num = Text(f"{self.list1[i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
+                            self.play(FadeIn(replace_num))
+                        else:
+                            
+                            tag = 0
+                            for j in range(self.t1):
+                                if self.list1[j+i+1] != 0:
+                                    tag = j
+                                    break
 
-                        self.play(FadeOut(crossed_number))
-                        replace_num = Text(f"{self.list1[i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
-                        self.play(FadeIn(replace_num))
+                            
 
-                        
-                    else:
-                        borrow = 0  # 若無需退位，重置退位標記
+                            while  tag >= 0:
+                                
+                                num_pos = printlist1[tag+i+1]
+                                if self.list1[tag+i+1] > 0:
+                                    line_start = num_pos.get_corner(UP + LEFT)  # 左上角
+                                    line_end = num_pos.get_corner(DOWN + RIGHT)  # 右下角
+                                    strike_through = Line(line_start, line_end, color=RED, stroke_width=5)
+                                    crossed_number = VGroup(num_pos, strike_through)
+                                    self.play(FadeIn(crossed_number))
+                                    self.wait(1)
+                                    self.play(FadeOut(crossed_number))
+                                    replace_num = Text(f"{self.list1[tag+i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
+                                    self.play(FadeIn(replace_num))
+                                
+                                    borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((num_pos))
+                                    borrow_texts.append(borrow_text)
+                                    self.play(borrow_text.animate.shift(RIGHT * 0.5 + UP * 0.5))
+                                
+                                
+                                
+                                else:
+                                    
+
+
+                                    line_start = borrow_texts[-1].get_left() + LEFT * 0.1 + UP * 0.1  # 左上角
+                                    line_end = borrow_texts[-1].get_right() + RIGHT * 0.1 + DOWN * 0.1  # 右下角
+                                    strike_through = Line(line_start, line_end, color=RED, stroke_width=5)
+                                    crossed_number = VGroup(borrow_texts[-1], strike_through)
+                                    self.play(FadeIn(crossed_number))
+                                    self.wait(1)
+                                    self.play(FadeOut(crossed_number))
+                                    replace_num = Text("9", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to(borrow_texts[-1])
+                                    self.play(FadeIn(replace_num))
+                                    self.list1[tag+i+1]=9
+
+                                    borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((borrow_texts[-1]))
+                                    borrow_texts.append(borrow_text)
+                                    self.play(borrow_text.animate.shift(RIGHT * 0.5))
+                                    self.wait(1)
+
+                                    
+
+                                
+
+                                tag-=1
                     
                     # 計算當前位數的結果
                      
