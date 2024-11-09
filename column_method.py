@@ -100,7 +100,6 @@ class column_method(Scene):
             #減法
             case 2:
                 ans = self.n1 - self.n2
-                borrow = 0  # 記錄退位
 
                 # 顯示減號
                 opr_method = Text("-", font="Noto Sans CJK", font_size=30).move_to(LEFT * 1.75 + DOWN * 0.5)
@@ -228,11 +227,63 @@ class column_method(Scene):
                 for borrow_text in borrow_texts:
                     self.play(FadeOut(borrow_text), run_time=0.5)
             case 3:
-                self.ans = self.n1 * self.n2
+                ans = self.n1 * self.n2
+                carry = 0
 
                 opr_method = Text(f"x", font="Noto Sans CJK", font_size=24).move_to(LEFT * 1.75 + DOWN*0.5)
                 scene.play(FadeIn(opr_method))
                 self.wait(2)
+
+                printlist1 = []
+                printlist2 = []
+                printlist3 = []
+                carry_texts = [] 
+
+                for i in range(self.t1):
+                    num = Text(f"{self.list1[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 0, 0))
+                    printlist1.append(num)
+                
+                for num in printlist1:
+                    self.play(FadeIn(num), run_time=0.1)
+
+                # 顯示減數
+                for i in range(self.t2):
+                    num = Text(f"{self.list2[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -0.5, 0))
+                    printlist2.append(num)
+                
+                for num in printlist2:
+                    self.play(FadeIn(num), run_time=0.1)
+                self.wait(2)
+
+                self.t3 =  math.floor(math.log10(abs(ans))) + 1  
+                for i in range(self.t2):
+                    for j in range(self.t1):    
+                        # 加數、被加數以及進位的計算
+                        sum_val = (self.list1[j] if j < self.t1 else 0) * (self.list2[i] if i < self.t2 else 0) + carry
+                        carry = sum_val // 10  # 判斷進位
+                        digit = sum_val % 10
+
+                        
+                        # 若進位存在，顯示進位1
+                        if carry > 0:
+                            carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((j * -0.5) + 3.0, 0.5, 0))
+                            carry_texts.append(carry_text)
+                            self.play(FadeIn(carry_text), run_time=0.5) 
+
+                for i in range(self.t3):
+                    digit = (ans // (10 ** i)) % 10
+                    self.list3.append(digit)
+
+                for i in range(self.t3):
+                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -1.5, 0))
+                    printlist3.append(num)
+                
+                for num in printlist3:
+                    self.play(FadeIn(num), run_time=0.1)
+                self.wait(2)
+
+                
+
             case 4:
                 self.ans = self.n1 / self.n2
 
