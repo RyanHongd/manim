@@ -6,9 +6,9 @@ import math
 
 class column_method(Scene):
     def construct(self):
-        n1 = 10100
-        n2 = 8025
-        self.cal_method = 2
+        n1 = 25
+        n2 = 16
+        self.cal_method = 3
 
         self.n1 = n1
         self.n2 = n2
@@ -100,8 +100,6 @@ class column_method(Scene):
             #減法
             case 2:
                 ans = self.n1 - self.n2
-
-                # 顯示減號
                 opr_method = Text("-", font="Noto Sans CJK", font_size=30).move_to(LEFT * 1.75 + DOWN * 0.5)
                 self.play(FadeIn(opr_method))
                 self.wait(2)
@@ -137,7 +135,8 @@ class column_method(Scene):
 
                 cal_time = self.t2
                 for i in range(cal_time):
-                    if self.list1[i] < self.list2[i] :   
+                    if self.list1[i] < self.list2[i] :
+                        #退位且前一位數大於0   
                         if self.list1[i+1] > 0:
                             #斜線
                             num_pos = printlist1[i+1]
@@ -154,16 +153,16 @@ class column_method(Scene):
                             self.play(FadeOut(crossed_number))
                             replace_num = Text(f"{self.list1[i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
                             self.play(FadeIn(replace_num))
+                        
                         else:
-                            
+                            #找大於0的位數並記錄
                             tag = 0
                             for j in range(self.t1):
                                 if self.list1[j+i+1] != 0:
                                     tag = j
                                     break
 
-                            
-
+                            #從此位數往回退位
                             while  tag >= 0:
                                 
                                 num_pos = printlist1[tag+i+1]
@@ -183,11 +182,9 @@ class column_method(Scene):
                                     self.play(borrow_text.animate.shift(RIGHT * 0.5 + UP * 0.5))
                                 
                                 
-                                
+                                #當下一位數為0繼續退位，從以退位的10再提出1給下一位數
                                 else:
                                     
-
-
                                     line_start = borrow_texts[-1].get_left() + LEFT * 0.1 + UP * 0.1  # 左上角
                                     line_end = borrow_texts[-1].get_right() + RIGHT * 0.1 + DOWN * 0.1  # 右下角
                                     strike_through = Line(line_start, line_end, color=RED, stroke_width=5)
@@ -204,14 +201,7 @@ class column_method(Scene):
                                     self.play(borrow_text.animate.shift(RIGHT * 0.5))
                                     self.wait(1)
 
-                                    
-
-                                
-
                                 tag-=1
-                    
-                    # 計算當前位數的結果
-                     
                     
                 self.wait(1)
                 # 顯示計算結果數字
@@ -226,6 +216,7 @@ class column_method(Scene):
                 # 隱藏退位顯示
                 for borrow_text in borrow_texts:
                     self.play(FadeOut(borrow_text), run_time=0.5)
+                    
             case 3:
                 ans = self.n1 * self.n2
                 carry = 0
@@ -268,14 +259,33 @@ class column_method(Scene):
                         if carry > 0:
                             carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((j * -0.5) + 3.0, 0.5, 0))
                             carry_texts.append(carry_text)
-                            self.play(FadeIn(carry_text), run_time=0.5) 
+                            self.play(FadeIn(carry_text), run_time=0.5)
+
+                    num = Text(f"{sum_val}", font="Noto Sans CJK", font_size=24, color = RED)
+                    self.play(FadeIn(num), run_time=0.1)
+
+                    self.sum_t =  math.floor(math.log10(abs(sum_val))) + 1
+                    for k in range(self.sum_t):
+                        digit = (sum_val // (10 ** k)) % 10
+                        self.list3.append(digit)
+                    
+                    for k in range(self.sum_t):
+                        num = Text(f"{self.list3[k]}", font="Noto Sans CJK", font_size=24).move_to((((k+j) * -0.5) + 3.5,(i * -0.5) -1.5, 0))
+                        printlist3.append(num)
+                    
+                    for num in printlist3:
+                        self.play(FadeIn(num), run_time=0.1)
+
+                    self.wait(0.5)
+                    self.list3.clear()
+                    printlist3.clear()
 
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
                     self.list3.append(digit)
 
                 for i in range(self.t3):
-                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -1.5, 0))
+                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -3, 0))
                     printlist3.append(num)
                 
                 for num in printlist3:
