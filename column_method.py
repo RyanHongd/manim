@@ -7,7 +7,7 @@ import math
 class column_method(Scene):
     def construct(self):
         n1 = 25
-        n2 = 16
+        n2 = 21
         self.cal_method = 3
 
         self.n1 = n1
@@ -86,7 +86,8 @@ class column_method(Scene):
                         carry_text = Text("1", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((i * -0.5) + 3.0, 0.5, 0))
                         carry_texts.append(carry_text)
                         self.play(FadeIn(carry_text), run_time=0.5)
-
+                
+                
                 # 顯示計算結果數字
                 for num in printlist3:
                     self.play(FadeIn(num), run_time=0.1)
@@ -220,6 +221,7 @@ class column_method(Scene):
             case 3:
                 ans = self.n1 * self.n2
                 carry = 0
+                sum_num = 0
 
                 opr_method = Text(f"x", font="Noto Sans CJK", font_size=24).move_to(LEFT * 1.75 + DOWN*0.5)
                 scene.play(FadeIn(opr_method))
@@ -255,22 +257,27 @@ class column_method(Scene):
                         digit = sum_val % 10
 
                         
+
+                        
                         # 若進位存在，顯示進位1
                         if carry > 0:
                             carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((j * -0.5) + 3.0, 0.5, 0))
                             carry_texts.append(carry_text)
                             self.play(FadeIn(carry_text), run_time=0.5)
 
-                    num = Text(f"{sum_val}", font="Noto Sans CJK", font_size=24, color = RED)
-                    self.play(FadeIn(num), run_time=0.1)
-
-                    self.sum_t =  math.floor(math.log10(abs(sum_val))) + 1
+                        
+                    nnow = self.list2[i] * self.n1
+                    
+                    if nnow!=0:
+                        self.sum_t =  math.floor(math.log10(abs(nnow))) + 1
+                    else:
+                        self.sum_t =1
                     for k in range(self.sum_t):
-                        digit = (sum_val // (10 ** k)) % 10
+                        digit = (nnow // (10 ** k)) % 10
                         self.list3.append(digit)
                     
                     for k in range(self.sum_t):
-                        num = Text(f"{self.list3[k]}", font="Noto Sans CJK", font_size=24).move_to((((k+j) * -0.5) + 3.5,(i * -0.5) -1.5, 0))
+                        num = Text(f"{self.list3[k]}", font="Noto Sans CJK", font_size=24).move_to((((k+i) * -0.5) + 3.5,(i * -0.5)-1.5, 0))
                         printlist3.append(num)
                     
                     for num in printlist3:
@@ -279,6 +286,8 @@ class column_method(Scene):
                     self.wait(0.5)
                     self.list3.clear()
                     printlist3.clear()
+                    carry_texts.clear()
+                    
 
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
@@ -287,7 +296,10 @@ class column_method(Scene):
                 for i in range(self.t3):
                     num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -3, 0))
                     printlist3.append(num)
-                
+
+                line2 = Line(start=LEFT * 2 + DOWN * 2.5, end=RIGHT * 4 + DOWN * 2.5, color=WHITE)
+                #顯示直線
+                self.play(Create(line2))
                 for num in printlist3:
                     self.play(FadeIn(num), run_time=0.1)
                 self.wait(2)
