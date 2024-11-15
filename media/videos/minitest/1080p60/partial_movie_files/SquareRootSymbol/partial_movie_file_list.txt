@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/User/Desktop/獨立研究/manim/media/videos/minitest/1080p60/partial_movie_files/SquareRootSymbol/3977891868_1045720688_223132457.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/media/videos/minitest/1080p60/partial_movie_files/SquareRootSymbol/2852726489_1391841902_560138266.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/media/videos/minitest/1080p60/partial_movie_files/SquareRootSymbol/2852726489_1141282389_1568320554.mp4'

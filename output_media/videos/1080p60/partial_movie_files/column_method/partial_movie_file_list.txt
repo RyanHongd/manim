@@ -1,0 +1,9 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3529212410_2670899295_223132457.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_1141282389_3328242251.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_4267776971_1957378282.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_291072666_4028542696.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_234801345_2947952101.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_1141282389_831533068.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_1095900427_7663495.mp4'
+file 'file:C:/Users/User/Desktop/獨立研究/manim/output_media/videos/1080p60/partial_movie_files/column_method/3040924799_1141282389_45282473.mp4'
