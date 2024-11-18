@@ -7,8 +7,8 @@ import math
 class column_method(Scene):
     def construct(self):
         n1 = 25
-        n2 = 5
-        self.cal_method = 4
+        n2 = 49
+        self.cal_method = 3
 
         self.n1 = n1
         self.n2 = n2
@@ -264,9 +264,10 @@ class column_method(Scene):
                         
                         # 若進位存在，顯示進位1
                         if carry > 0:
-                            carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((j * -0.5) + 3.0, 1.5, 0))
+                            carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to((((i+j) * -0.5) + 3.0, 1.5, 0))
                             carry_texts.append(carry_text)
                             self.play(FadeIn(carry_text), run_time=0.5)
+                        self.wait(1)
 
                         
                     nnow = self.list2[i] * self.n1
@@ -289,6 +290,9 @@ class column_method(Scene):
                     self.wait(1)
                     self.list3.clear()
                     printlist3.clear()
+                    for carry_t in carry_texts:
+                        self.play(FadeOut(carry_t), run_time=0.1)
+                    
                     carry_texts.clear()
                     
 
