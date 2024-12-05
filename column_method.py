@@ -6,9 +6,9 @@ import math
 
 class column_method(Scene):
     def construct(self):
-        n1 = 25
-        n2 = 49
-        self.cal_method = 3
+        n1 = 50
+        n2 = 2
+        self.cal_method = 4
 
         self.n1 = n1
         self.n2 = n2
@@ -314,23 +314,25 @@ class column_method(Scene):
                 
 
             case 4:
-                ans = self.n1 / self.n2
+                ans = int(self.n1 / self.n2)
+                
 
+                #創建除法的框線
                 arc = Arc(radius=0.4, angle=PI / 2.8, start_angle=-0.7, color=WHITE).shift(LEFT * 1.5 + UP * 1)
-                # 創建根號符號的水平線
                 line = Line(
                     start=arc.get_end(), 
                     end=arc.get_end() + RIGHT * 2, 
                     color=WHITE
                 )
 
-                # 顯示根號符號
                 self.play(Create(arc), Create(line))
                 self.wait(2)
 
+                self.list4 = []
                 printlist1 = []
                 printlist2 = []
                 printlist3 = []
+                printlist4 = []
                 carry_texts = []  # 存儲進位顯示物件
 
                 # 顯示被除數
@@ -350,16 +352,34 @@ class column_method(Scene):
                     self.play(FadeIn(num), run_time=0.1)
                 self.wait(2)
 
-                self.t3 =  math.floor(math.log10(abs(ans))) + 1  
+                self.t3 =  math.floor(math.log10(abs(ans))) + 1
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
                     self.list3.append(digit)
 
-                for i in range(self.t3):
-                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -2, 0))
-                    printlist3.append(num)
-                for num in printlist3:
-                    self.play(FadeIn(num), run_time=0.1)
+                for idx, value in enumerate(reversed(self.list3)):
+                    # 顯示反向排列的 `self.list3` 值
+                    printans = Text(f"{value}", font="Noto Sans CJK", font_size=24).move_to(((idx * 0.5)-0.5, 1.5, 0))
+                    self.play(FadeIn(printans), run_time=0.1)
+                    self.wait(1)
+                    
+                    nt =  math.floor(math.log10(abs(self.n2 * value))) + 1
+                    for i in range(nt):
+                        digit = (self.n2 * value // (10 ** i)) % 10
+                        self.list4.append(digit)
+                        num = Text(f"{self.list4[-i]}", font="Noto Sans CJK", font_size=24).move_to(((idx * 0.5)+(i * -0.5) -0.5, (idx * -1)+0.4, 0))
+                        self.play(FadeIn(num), run_time=0.1)
+                        self.wait(1)
+                    
+                    line = Line(start=LEFT * 1.5 + DOWN * idx , end=RIGHT * 1.5 + DOWN * idx, color=WHITE)
+                    # 顯示直線
+                    self.play(Create(line))
+                    self.list4.clear()
+                    #reversed_list1 = self.list1[::-1]
+                    #if reversed_list1[i] != self.n2 * value
+
+
+                
                 self.wait(2)
 
                 
