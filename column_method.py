@@ -4,9 +4,11 @@ import subprocess
 import platform
 import math
 
+STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
+
 class column_method(Scene):
     def construct(self):
-        n1 = 50
+        n1 = 150
         n2 = 2
         self.cal_method = 4
 
@@ -44,7 +46,7 @@ class column_method(Scene):
                 carry = 0  # 記錄進位
 
                 # 顯示加號
-                opr_method = Text("+", font="Noto Sans CJK", font_size=24).move_to(LEFT * 1.75 + DOWN * -0.5)
+                opr_method = Text("+", **STD_FONT).move_to(LEFT * 1.75 + DOWN * -0.5)
                 self.play(FadeIn(opr_method))
                 self.wait(2)
 
@@ -55,7 +57,7 @@ class column_method(Scene):
 
                 # 顯示被加數
                 for i in range(self.t1):
-                    num = Text(f"{self.list1[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 1, 0))
+                    num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
                 
                 for num in printlist1:
@@ -63,7 +65,7 @@ class column_method(Scene):
 
                 # 顯示加數
                 for i in range(self.t2):
-                    num = Text(f"{self.list2[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 0.5, 0))
+                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
                 
                 for num in printlist2:
@@ -79,7 +81,7 @@ class column_method(Scene):
                     digit = sum_val % 10
 
                     # 顯示當前位數的結果
-                    num = Text(f"{digit}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -0.5, 0))
+                    num = Text(f"{digit}", **STD_FONT).move_to(((i * -0.5) + 3.5, -0.5, 0))
                     printlist3.append(num)   
 
                     # 若進位存在，顯示進位1
@@ -114,7 +116,7 @@ class column_method(Scene):
 
                 # 顯示被減數
                 for i in range(self.t1):
-                    num = Text(f"{self.list1[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 1, 0))
+                    num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
                 
                 for num in printlist1:
@@ -122,7 +124,7 @@ class column_method(Scene):
 
                 # 顯示減數
                 for i in range(self.t2):
-                    num = Text(f"{self.list2[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 0.5, 0))
+                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
                 
                 for num in printlist2:
@@ -154,7 +156,7 @@ class column_method(Scene):
                             self.play(FadeIn(borrow_text), run_time=0.5)
 
                             self.play(FadeOut(crossed_number))
-                            replace_num = Text(f"{self.list1[i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
+                            replace_num = Text(f"{self.list1[i+1]-1}", **STD_FONT).move_to(num_pos)
                             self.play(FadeIn(replace_num))
                         
                         else:
@@ -177,7 +179,7 @@ class column_method(Scene):
                                     self.play(FadeIn(crossed_number))
                                     self.wait(1)
                                     self.play(FadeOut(crossed_number))
-                                    replace_num = Text(f"{self.list1[tag+i+1]-1}", font="Noto Sans CJK", font_size=24).move_to(num_pos)
+                                    replace_num = Text(f"{self.list1[tag+i+1]-1}", **STD_FONT).move_to(num_pos)
                                     self.play(FadeIn(replace_num))
                                 
                                     borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((num_pos))
@@ -209,7 +211,7 @@ class column_method(Scene):
                 self.wait(1)
                 # 顯示計算結果數字
                 for i in range(self.t3):
-                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -0.5, 0))
+                    num = Text(f"{self.list3[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, -0.5, 0))
                     printlist3.append(num)
                 
                 for num in printlist3:
@@ -226,7 +228,7 @@ class column_method(Scene):
                 carry = 0
                 sum_num = 0
 
-                opr_method = Text(f"x", font="Noto Sans CJK", font_size=24).move_to(LEFT * 1.75 + DOWN * -0.5)
+                opr_method = Text(f"x", **STD_FONT).move_to(LEFT * 1.75 + DOWN * -0.5)
                 scene.play(FadeIn(opr_method))
                 self.wait(2)
 
@@ -236,7 +238,7 @@ class column_method(Scene):
                 carry_texts = [] 
 
                 for i in range(self.t1):
-                    num = Text(f"{self.list1[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 1, 0))
+                    num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
                 
                 for num in printlist1:
@@ -244,7 +246,7 @@ class column_method(Scene):
 
                 # 顯示減數
                 for i in range(self.t2):
-                    num = Text(f"{self.list2[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, 0.5, 0))
+                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
                 
                 for num in printlist2:
@@ -281,7 +283,7 @@ class column_method(Scene):
                         self.list3.append(digit)
                     
                     for k in range(self.sum_t):
-                        num = Text(f"{self.list3[k]}", font="Noto Sans CJK", font_size=24).move_to((((k+i) * -0.5) + 3.5,(i * -0.5)-0.5, 0))
+                        num = Text(f"{self.list3[k]}", **STD_FONT).move_to((((k+i) * -0.5) + 3.5,(i * -0.5)-0.5, 0))
                         printlist3.append(num)
                     
                     for num in printlist3:
@@ -301,7 +303,7 @@ class column_method(Scene):
                     self.list3.append(digit)
 
                 for i in range(self.t3):
-                    num = Text(f"{self.list3[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5) + 3.5, -2, 0))
+                    num = Text(f"{self.list3[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, -2, 0))
                     printlist3.append(num)
 
                 line2 = Line(start=LEFT * 2 + DOWN * 1.5, end=RIGHT * 4 + DOWN * 1.5, color=WHITE)
@@ -329,15 +331,17 @@ class column_method(Scene):
                 self.wait(2)
 
                 self.list4 = []
+                self.list5 = []
                 printlist1 = []
                 printlist2 = []
                 printlist3 = []
-                printlist4 = []
+                remainlist = []
                 carry_texts = []  # 存儲進位顯示物件
+                remain_num = self.n1
 
                 # 顯示被除數
                 for i in range(self.t1):
-                    num = Text(f"{self.list1[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5), 0.9, 0))
+                    num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5), 0.9, 0))
                     printlist1.append(num)
                 
                 for num in printlist1:
@@ -345,7 +349,7 @@ class column_method(Scene):
 
                 # 顯示除數
                 for i in range(self.t2):
-                    num = Text(f"{self.list2[i]}", font="Noto Sans CJK", font_size=24).move_to(((i * -0.5)-1.35, 0.9, 0))
+                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5)-1.35, 0.9, 0))
                     printlist2.append(num)
                 
                 for num in printlist2:
@@ -359,7 +363,7 @@ class column_method(Scene):
 
                 for idx, value in enumerate(reversed(self.list3)):
                     # 顯示反向排列的 `self.list3` 值
-                    printans = Text(f"{value}", font="Noto Sans CJK", font_size=24).move_to(((idx * 0.5)-0.5, 1.5, 0))
+                    printans = Text(f"{value}", **STD_FONT).move_to(((idx * 0.5)-0.5, 1.5, 0))
                     self.play(FadeIn(printans), run_time=0.1)
                     self.wait(1)
                     
@@ -367,14 +371,27 @@ class column_method(Scene):
                     for i in range(nt):
                         digit = (self.n2 * value // (10 ** i)) % 10
                         self.list4.append(digit)
-                        num = Text(f"{self.list4[-i]}", font="Noto Sans CJK", font_size=24).move_to(((idx * 0.5)+(i * -0.5) -0.5, (idx * -1)+0.4, 0))
+                        num = Text(f"{self.list4[-i]}", **STD_FONT, color=BLUE).move_to(((idx * 0.5)+(i * -0.5) -0.5, (idx * -0.8)+0.4, 0))
                         self.play(FadeIn(num), run_time=0.1)
                         self.wait(1)
                     
-                    line = Line(start=LEFT * 1.5 + DOWN * idx , end=RIGHT * 1.5 + DOWN * idx, color=WHITE)
+                    line = Line(start=LEFT * 1.6 + DOWN * (idx* 0.8-0.2) , end=RIGHT * 1.6 + DOWN * (idx* 0.8-0.2), color=WHITE)
                     # 顯示直線
                     self.play(Create(line))
                     self.list4.clear()
+
+                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx))
+                    num = Text(f"{self.n2 * value * (10 ** (nt-idx))}", **STD_FONT, color=GREEN)
+                    self.play(FadeIn(num), run_time=0.1)
+                    nt2 =  math.floor(math.log10(abs(remain_num))) + 1
+                    for i in range(nt2):
+                        digit = (remain_num // (10 ** i)) % 10
+                        self.list5.append(digit)
+                        num = Text(f"{self.list5[-i]}", **STD_FONT, color=RED).move_to(((idx * 0.5)+(i * -0.5), (idx * -0.8), 0))
+                        self.play(FadeIn(num), run_time=0.1)
+                        self.wait(1)
+                    
+                    self.list5.clear()
                     #reversed_list1 = self.list1[::-1]
                     #if reversed_list1[i] != self.n2 * value
 
