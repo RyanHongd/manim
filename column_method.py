@@ -8,8 +8,8 @@ STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
 
 class column_method(Scene):
     def construct(self):
-        n1 = 150
-        n2 = 2
+        n1 = 100
+        n2 = 20
         self.cal_method = 4
 
         self.n1 = n1
@@ -320,7 +320,7 @@ class column_method(Scene):
                 
 
                 #創建除法的框線
-                arc = Arc(radius=0.4, angle=PI / 2.8, start_angle=-0.7, color=WHITE).shift(LEFT * 1.5 + UP * 1)
+                arc = Arc(radius=0.4, angle=PI / 2.8, start_angle=-0.7, color=WHITE).shift(LEFT * 2 + UP * 1)
                 line = Line(
                     start=arc.get_end(), 
                     end=arc.get_end() + RIGHT * 2, 
@@ -349,7 +349,7 @@ class column_method(Scene):
 
                 # 顯示除數
                 for i in range(self.t2):
-                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5)-1.35, 0.9, 0))
+                    num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5)-1.85, 0.9, 0))
                     printlist2.append(num)
                 
                 for num in printlist2:
@@ -366,8 +366,11 @@ class column_method(Scene):
                     printans = Text(f"{value}", **STD_FONT).move_to(((idx * 0.5)-0.5, 1.5, 0))
                     self.play(FadeIn(printans), run_time=0.1)
                     self.wait(1)
+                    if self.n2 * value==0:
+                        nt=1
+                    else:
+                        nt =  math.floor(math.log10(abs(self.n2 * value))) + 1
                     
-                    nt =  math.floor(math.log10(abs(self.n2 * value))) + 1
                     for i in range(nt):
                         digit = (self.n2 * value // (10 ** i)) % 10
                         self.list4.append(digit)
@@ -380,12 +383,15 @@ class column_method(Scene):
                     self.play(Create(line))
                     self.list4.clear()
 
-                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx))
-                    num = Text(f"{self.n2 * value * (10 ** (nt-idx))}", **STD_FONT, color=GREEN)
-                    self.play(FadeIn(num), run_time=0.1)
-                    nt2 =  math.floor(math.log10(abs(remain_num))) + 1
+                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx-1))
+                    if remain_num==0:
+                        nt2=1
+                    else:
+                        nt2 =  math.floor(math.log10(abs(remain_num))) + 1
+                    
+
                     for i in range(nt2):
-                        digit = (remain_num // (10 ** i)) % 10
+                        digit = int((remain_num // (10 ** i)) % 10)
                         self.list5.append(digit)
                         num = Text(f"{self.list5[-i]}", **STD_FONT, color=RED).move_to(((idx * 0.5)+(i * -0.5), (idx * -0.8), 0))
                         self.play(FadeIn(num), run_time=0.1)
