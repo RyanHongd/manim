@@ -8,8 +8,8 @@ STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
 
 class column_method(Scene):
     def construct(self):
-        n1 = 100
-        n2 = 20
+        n1 = 16
+        n2 = 8
         self.cal_method = 4
 
         self.n1 = n1
@@ -362,6 +362,15 @@ class column_method(Scene):
                     self.list3.append(digit)
 
                 for idx, value in enumerate(reversed(self.list3)):
+                    for i in range(self.t1):
+                        num = Text(f"{self.n1 // (10 ** (self.t1-i-1))}", **STD_FONT, color=BLUE).move_to((3,0, 0))
+                        self.play(FadeIn(num), run_time=0.1)
+                        self.wait(1)
+                        if self.n2 * value <= self.n1 // (10 ** (self.t1-i-1)):
+                            
+                            idx+=i
+                            
+                    
                     # 顯示反向排列的 `self.list3` 值
                     printans = Text(f"{value}", **STD_FONT).move_to(((idx * 0.5)-0.5, 1.5, 0))
                     self.play(FadeIn(printans), run_time=0.1)
@@ -383,7 +392,7 @@ class column_method(Scene):
                     self.play(Create(line))
                     self.list4.clear()
 
-                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx-1))
+                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx))
                     if remain_num==0:
                         nt2=1
                     else:
