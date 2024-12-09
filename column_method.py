@@ -8,8 +8,8 @@ STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
 
 class column_method(Scene):
     def construct(self):
-        n1 = 16
-        n2 = 8
+        n1 = 50
+        n2 = 2
         self.cal_method = 4
 
         self.n1 = n1
@@ -366,10 +366,12 @@ class column_method(Scene):
                         num = Text(f"{self.n1 // (10 ** (self.t1-i-1))}", **STD_FONT, color=BLUE).move_to((3,0, 0))
                         self.play(FadeIn(num), run_time=0.1)
                         self.wait(1)
+                        '''
                         if self.n2 * value <= self.n1 // (10 ** (self.t1-i-1)):
                             
                             idx+=i
-                            
+                        '''
+
                     
                     # 顯示反向排列的 `self.list3` 值
                     printans = Text(f"{value}", **STD_FONT).move_to(((idx * 0.5)-0.5, 1.5, 0))
