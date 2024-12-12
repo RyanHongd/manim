@@ -8,8 +8,8 @@ STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
 
 class column_method(Scene):
     def construct(self):
-        n1 = 50
-        n2 = 2
+        n1 = 27
+        n2 = 9
         self.cal_method = 4
 
         self.n1 = n1
@@ -385,7 +385,7 @@ class column_method(Scene):
                     for i in range(nt):
                         digit = (self.n2 * value // (10 ** i)) % 10
                         self.list4.append(digit)
-                        num = Text(f"{self.list4[-i]}", **STD_FONT, color=BLUE).move_to(((idx * 0.5)+(i * -0.5) -0.5, (idx * -0.8)+0.4, 0))
+                        num = Text(f"{self.list4[-i]}", **STD_FONT, color=BLUE).move_to(((idx * 0.5)+(i * -0.5), (idx * -0.8)+0.4, 0))
                         self.play(FadeIn(num), run_time=0.1)
                         self.wait(1)
                     
@@ -400,18 +400,21 @@ class column_method(Scene):
                     else:
                         nt2 =  math.floor(math.log10(abs(remain_num))) + 1
                     
-
-                    for i in range(nt2):
-                        digit = int((remain_num // (10 ** i)) % 10)
-                        self.list5.append(digit)
-                        num = Text(f"{self.list5[-i]}", **STD_FONT, color=RED).move_to(((idx * 0.5)+(i * -0.5), (idx * -0.8), 0))
-                        self.play(FadeIn(num), run_time=0.1)
-                        self.wait(1)
+                    if idx!=self.t3-1:
+                        for i in range(nt2):
+                            digit = int((remain_num // (10 ** i)) % 10)
+                            self.list5.append(digit)
+                            num = Text(f"{self.list5[-i]}", **STD_FONT, color=RED).move_to(((idx * 0.5)+(i * -0.5), (idx * -0.8), 0))
+                            self.play(FadeIn(num), run_time=0.1)
+                            self.wait(1)
                     
                     self.list5.clear()
                     #reversed_list1 = self.list1[::-1]
                     #if reversed_list1[i] != self.n2 * value
-
+                remain_num = self.n1 % self.n2
+                num = Text(f"{remain_num}", **STD_FONT, color=RED).move_to(((idx * 0.5)+((i+1) * -0.5), (idx * -0.8), 0))
+                self.play(FadeIn(num), run_time=0.1)
+                self.wait(1)
 
                 
                 self.wait(2)
