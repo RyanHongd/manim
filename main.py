@@ -7,6 +7,7 @@ from minus import minus
 from multiplication import multiplication
 from division import division
 from write import write_text
+from column_method import column_method
 
 class MainScene2(Scene):
     def construct(self):
@@ -15,14 +16,14 @@ class MainScene2(Scene):
         min_value1, min_value2, min_pos = 0, 0, 0
         mup_value1, mup_value2, mup_pos = 0, 0, 0
         div_value1, div_value2, div_pos = 33, 4, 2
-
+        colume_value1,colume_value2,cal_method = 33,4,3
         #標題的內容
-        title = f"現在有16個男生，17個女生，要把他們每4人分一組，請問可以分成幾組?"
+        title = f"放入題目"
         title_pos = UP
         title_width = 14
 
         #答案的內容
-        answer = f"因此答案是8組，剩下一個人"
+        answer = f"放入答案"
         answer_pos = DOWN
         answer_width = 4
 
@@ -31,7 +32,8 @@ class MainScene2(Scene):
         add_scene = add(add_value1, add_value2, add_pos)
         #minus_scene = minus(min_value1, min_value2, min_pos)
         #multiplication_scene = multiplication(mup_value1, mup_value2, mup_pos)
-        division_scene = division(div_value1, div_value2, div_pos)
+        #division_scene = division(div_value1, div_value2, div_pos)
+        colume_scene = column_method(colume_value1,colume_value2,cal_method)
         answer = write_text(answer,answer_pos,answer_width)
 
         # 執行動畫
@@ -39,7 +41,8 @@ class MainScene2(Scene):
         add_scene.animation(self)
         #minus_scene.animation(self)
         #multiplication_scene.animation(self)
-        division_scene.animation(self)
+        #division_scene.animation(self)
+        colume_scene.animation(self)
         answer.animation(self)
         
 
