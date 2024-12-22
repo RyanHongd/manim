@@ -27,13 +27,14 @@ def read_file():
 
 # 調用函數來讀取並輸出文件內容
 content=read_file()
-
+user_input = f"小名有30個50塊，要把這些錢要分給4個人，每個人可以拿到幾塊錢?"
+combined_input = f"題目是：{user_input},{content}"
 
 response = client.chat.completions.create(
     model="gpt-4o-2024-05-13",
     messages = [
         {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
-        {"role": "user", "content": content}
+        {"role": "user", "content": combined_input}
     ]
 
 )

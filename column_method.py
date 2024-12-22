@@ -4,12 +4,12 @@ import math
 STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
 
 class column_method:
-    def __init__(self, n1, n2, cal_method):
+    def __init__(self, n1, n2, cal_method,column_pos):
         self.n1 = n1
         self.n2 = n2
         self.sum = n1 + n2
         self.cal_method = cal_method
-    
+        self.pos = column_pos
         self.list1 = []
         self.list2 = []
         self.list3 = []
@@ -26,9 +26,9 @@ class column_method:
             self.list2.append(digit)
 
     def create_base(self,scene):
-        line = Line(start=LEFT * 2 , end=RIGHT * 4 , color=WHITE)
+        self.line = Line(start=LEFT * 2 , end=RIGHT * 4 , color=WHITE)
         # 顯示直線
-        scene.play(Create(line))
+        scene.play(Create(self.line))
 
     def animation(self,scene):
         text=f"我們可以試著用直式來了解計算"
@@ -100,7 +100,10 @@ class column_method:
                 for carry_text in carry_texts:
                     scene.play(FadeOut(carry_text), run_time=0.5)
                 scene.wait(2)
-            
+
+                ans_text = Text(f"{self.n1} + {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                scene.play(FadeIn(ans_text))
+                scene.wait(3)
             #減法
             case 2:
                 self.create_base(scene)
@@ -221,7 +224,10 @@ class column_method:
                 # 隱藏退位顯示
                 for borrow_text in borrow_texts:
                     scene.play(FadeOut(borrow_text), run_time=0.5)
-                    
+                
+                ans_text = Text(f"{self.n1} - {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                scene.play(FadeIn(ans_text))
+                scene.wait(3)
             case 3:
                 self.create_base(scene)
                 ans = self.n1 * self.n2
@@ -313,7 +319,9 @@ class column_method:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
 
-                
+                ans_text = Text(f"{self.n1} x {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                scene.play(FadeIn(ans_text))
+                scene.wait(3)
 
             case 4:
                 ans = int(self.n1 / self.n2)
@@ -421,3 +429,19 @@ class column_method:
                 for num in print_remain:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
+
+                if self.n1 % self.n2 !=0:
+                    ans_text = Text(f"{self.n1} ÷ {self.n2} = {ans} ... {self.n1 % self.n2}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                else:
+                    ans_text = Text(f"{self.n1} ÷ {self.n2} = {ans}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                # 顯示文字
+                scene.play(FadeIn(ans_text))
+                scene.wait(3)
+        scene.wait(3)
+        scene.play(FadeOut(self.line))
+        #for num in printlist1:
+            #scene.play(FadeOut(printlist1))
+        #for num in printlist2:
+            #scene.play(FadeOut(printlist2))
+        
+         

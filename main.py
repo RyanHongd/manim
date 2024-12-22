@@ -12,11 +12,12 @@ from column_method import column_method
 class MainScene2(Scene):
     def construct(self):
         #載入不同函式運算時使用的參數，pos是運算的順序
-        add_value1, add_value2, add_pos = 16, 17, 1  
-        min_value1, min_value2, min_pos = 0, 0, 0
-        mup_value1, mup_value2, mup_pos = 0, 0, 0
-        div_value1, div_value2, div_pos = 33, 4, 2
-        colume_value1,colume_value2,cal_method = 33,4,3
+        add_pos, min_pos, mup_pos, div_pos,column_pos = 1, 0, 0, 0,2
+        add_value1, add_value2= 16, 17  
+        min_value1, min_value2= 0, 0
+        mup_value1, mup_value2 = 0, 0
+        div_value1, div_value2= 33, 4
+        column_value1,column_value2,cal_method = 1500,4,4
         #標題的內容
         title = f"放入題目"
         title_pos = UP
@@ -28,22 +29,22 @@ class MainScene2(Scene):
         answer_width = 4
 
         #創建需要的場景
-        title = write_text(title,title_pos,title_width)
-        add_scene = add(add_value1, add_value2, add_pos)
+        #title = write_text(title,title_pos,title_width)
+        #add_scene = add(add_value1, add_value2, add_pos)
         #minus_scene = minus(min_value1, min_value2, min_pos)
-        #multiplication_scene = multiplication(mup_value1, mup_value2, mup_pos)
+        #multiplication_scene =  multiplication(mup_value1, mup_value2, mup_pos)
         #division_scene = division(div_value1, div_value2, div_pos)
-        colume_scene = column_method(colume_value1,colume_value2,cal_method)
-        answer = write_text(answer,answer_pos,answer_width)
+        colume_scene = column_method(column_value1,column_value2,cal_method,column_pos)
+        #answer = write_text(answer,answer_pos,answer_width)
 
         # 執行動畫
-        title.animation(self)
-        add_scene.animation(self)
+        #title.animation(self)
+        #add_scene.animation(self)
         #minus_scene.animation(self)
         #multiplication_scene.animation(self)
         #division_scene.animation(self)
         colume_scene.animation(self)
-        answer.animation(self)
+        #answer.animation(self)
         
 
 

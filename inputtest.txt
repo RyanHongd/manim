@@ -1,6 +1,7 @@
 
 *請你幫我調整參數和函式的順序，以符合題目的要求，其他都不要更改，你只能改MainScen2裡的內容，最後給我一個manim影片的程式碼 
 *add處理加法，minus處理減法，multiplication處理乘法，division處理除法，write_text處理文字
+*當你判斷如果運算後的答案會大於100時，你要呼叫column_method這個函式，乘法只要運算的數字大於10就用直式
 *請你把不需要的運算方式刪掉，同時更改pos，以符合運算順序
 *請妳回覆時不要給我多餘的文字，直接給我程式碼
 以下是要回覆的文字：
@@ -14,41 +15,49 @@ from minus import minus
 from multiplication import multiplication
 from division import division
 from write import write_text
-from manim import UP, DOWN
+from column_method import column_method
 
 class MainScene2(Scene):
     def construct(self):
-        #載入不同函式運算時使用的參數，pos是運算的順序
-        #由於這是組合運算，所以第二個運算方式的參數會有一個來自前面運算
-        add_value1, add_value2, add_pos = 0, 0, 0  
-        min_value1, min_value2, min_pos = 0, 0, 0
-        mup_value1, mup_value2, mup_pos = 0, 0, 0
-        div_value1, div_value2, div_pos = 0, 0, 0
+        #載入不同函式運算時使用的參數，pos是運算的順序，先用到的改1，後用到的改2
+        add_pos, min_pos, mup_pos, div_pos,column_pos = 0, 0, 0, 0, 0
 
-        #標題的內容
+        #把要運算的數字填入，如果是多種運算方式的結合，你要在第二個運算中，放入第一個運算的結果
+        #以下是舉例不要真的填入：例如8*2-3=15，你就要在add_value1填入8, add_value2填入2，然後運算結果為16，所以接下來要在min_value1填入16，min_value2填入3
+        add_value1, add_value2 = 0, 0  
+        min_value1, min_value2 = 0, 0
+        mup_value1, mup_value2 = 0, 0
+        div_value1, div_value2 = 0, 0
+
+        #cal_method是指運算的方法，需要加法就填1，減法填2，乘法填3，除法填4，其餘內容相同
+        column_value1,column_value2,cal_method = 0,0,0
+
+        #標題的內容，你要修改title以符合題目的敘述
         title = f"放入題目"
         title_pos = UP
         title_width = 14
 
-        #答案的內容
+        #答案的內容，你要修改answer以符合正確的答案，
         answer = f"放入答案"
         answer_pos = DOWN
         answer_width = 4
 
-        #創建需要的場景
+        #創建需要的場景，把需要的運算方式留著就好，剩餘的刪掉，要記得載入pos
         title = write_text(title,title_pos,title_width)
         add_scene = add(add_value1, add_value2, add_pos)
         minus_scene = minus(min_value1, min_value2, min_pos)
-        multiplication_scene = multiplication(mup_value1, mup_value2, mup_pos)
+        multiplication_scene =  multiplication(mup_value1, mup_value2, mup_pos)
         division_scene = division(div_value1, div_value2, div_pos)
+        column_scene = column_method(column_value1,column_value2,cal_method,column_pos)
         answer = write_text(answer,answer_pos,answer_width)
 
-        # 執行動畫(在上一步已創建的動畫函式加上.animation(self)即可執行)
+        # 執行動畫，把需要的運算方式留著就好，剩餘的刪掉
         title.animation(self)
         add_scene.animation(self)
         minus_scene.animation(self)
         multiplication_scene.animation(self)
         division_scene.animation(self)
+        colume_scene.animation(self)
         answer.animation(self)
         
 
@@ -73,5 +82,4 @@ if __name__ == "__main__":
     elif platform.system() == "Darwin":  # MacOS
         subprocess.run(["open", output_video_path])
     elif platform.system() == "Linux":  # Linux
-        subprocess.run(["xdg-open", output_video_path])
         subprocess.run(["xdg-open", output_video_path])

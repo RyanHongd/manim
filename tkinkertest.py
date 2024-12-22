@@ -12,6 +12,7 @@ from minus import minus
 from multiplication import multiplication
 from division import division
 from write import write_text
+from column_method import column_method
 
 # 載入 .env 檔案中的 API 金鑰
 load_dotenv()
@@ -39,6 +40,7 @@ def read_file():
 
 # 調用函數來讀取並輸出文件內容
 content=read_file()
+
 
 # 建立視窗應用程式
 def send_to_gpt():
