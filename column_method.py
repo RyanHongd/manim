@@ -13,7 +13,7 @@ class column_method:
         self.list1 = []
         self.list2 = []
         self.list3 = []
-
+        self.cb =0
         # 分解位數
         self.t1 = math.floor(math.log10(abs(n1))) + 1
         for i in range(self.t1):
@@ -29,6 +29,7 @@ class column_method:
         self.line = Line(start=LEFT * 2 , end=RIGHT * 4 , color=WHITE)
         # 顯示直線
         scene.play(Create(self.line))
+        self.cb = 1
 
     def animation(self,scene):
         text=f"我們可以試著用直式來了解計算"
@@ -38,7 +39,12 @@ class column_method:
         scene.play(FadeIn(print_text))
         scene.wait(3)
         scene.play(FadeOut(print_text))
+        rn=0
+        rn2=0
+        l2=0
+        opr=1
         match self.cal_method:
+            
             #加法
             case 1:
                 self.create_base(scene)
@@ -142,8 +148,10 @@ class column_method:
                     self.list3.append(digit)
 
                 cal_time = self.t2
+
                 for i in range(cal_time):
                     if self.list1[i] < self.list2[i] :
+                        rn=1
                         #退位且前一位數大於0   
                         if self.list1[i+1] > 0:
                             #斜線
@@ -200,8 +208,10 @@ class column_method:
                                     scene.play(FadeIn(crossed_number))
                                     scene.wait(1)
                                     scene.play(FadeOut(crossed_number))
-                                    replace_num = Text("9", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to(borrow_texts[-1])
+                                    replace_num2 = Text("9", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to(borrow_texts[-1])
+                                    rn2=1
                                     scene.play(FadeIn(replace_num))
+                                    
                                     self.list1[tag+i+1]=9
 
                                     borrow_text = Text("10", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to((borrow_texts[-1]))
@@ -225,9 +235,10 @@ class column_method:
                 for borrow_text in borrow_texts:
                     scene.play(FadeOut(borrow_text), run_time=0.5)
                 
-                ans_text = Text(f"{self.n1} - {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                ans_text = Text(f"{self.n1} - {self.n2} = {ans}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
+            #乘法
             case 3:
                 self.create_base(scene)
                 ans = self.n1 * self.n2
@@ -313,19 +324,21 @@ class column_method:
                     printlist3.append(num)
 
                 line2 = Line(start=LEFT * 2 + DOWN * 1.5, end=RIGHT * 4 + DOWN * 1.5, color=WHITE)
+                l2 = 1
                 #顯示直線
                 scene.play(Create(line2))
                 for num in printlist3:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
 
-                ans_text = Text(f"{self.n1} x {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+                scene.clear()
+                ans_text = Text(f"{self.n1} x {self.n2} = {ans}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
-
+            #除法
             case 4:
                 ans = int(self.n1 / self.n2)
-                
+                opr = 0
 
                 #創建除法的框線
                 arc = Arc(radius=0.4, angle=PI / 2.8, start_angle=-0.7, color=WHITE).shift(LEFT * 2 + UP * 1)
@@ -428,8 +441,9 @@ class column_method:
                     print_remain.append(num)
                 for num in print_remain:
                     scene.play(FadeIn(num), run_time=0.1)
-                scene.wait(2)
+                scene.wait(3)
 
+                scene.clear()
                 if self.n1 % self.n2 !=0:
                     ans_text = Text(f"{self.n1} ÷ {self.n2} = {ans} ... {self.n1 % self.n2}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
                 else:
@@ -437,10 +451,23 @@ class column_method:
                 # 顯示文字
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
-        scene.wait(3)
-        scene.play(FadeOut(self.line))
-        #for num in printlist1:
-            #scene.play(FadeOut(printlist1))
+        
+        if self.cb ==1:
+            scene.play(FadeOut(self.line))
+        if rn == 1:
+            scene.play(FadeOut(replace_num))
+        if rn2 == 1:
+            scene.play(FadeOut(replace_num2))
+        
+        if opr !=0:
+            scene.play(FadeOut(opr_method))
+        for num in printlist1:
+            scene.play(FadeOut(num), run_time=0.1)
+        for num in printlist2:
+            scene.play(FadeOut(num), run_time=0.1)
+        for num in printlist3:
+            scene.play(FadeOut(num), run_time=0.1)
+        scene.wait(1)
         #for num in printlist2:
             #scene.play(FadeOut(printlist2))
         

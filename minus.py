@@ -70,7 +70,7 @@ class minus:
         ten_circles1 = []
 
         for i in range(units1):
-            dot = Dot(point=(i * 0.3 - 0.65, 0.5, 0), color=RED)
+            dot = Dot(point=(i * 0.3 - 0.7, 0.5, 0), color=RED)
             unit_dots1.append(dot)
 
         for i in range(tens1):
@@ -113,7 +113,7 @@ class minus:
         for circle in selected_circles:
             circle[0].set_color(BLUE)
             circle[1].set_color(WHITE)
-            scene.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2 / 2) * 0.5 + 2) + DOWN * 1.5), run_time=0.5)
+            scene.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2 / 2) * 0.3 + 2) + DOWN * 1.5), run_time=0.5)
 
         scene.wait(2)
         for dot in selected_dots:
