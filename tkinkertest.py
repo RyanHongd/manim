@@ -83,18 +83,19 @@ window.title("GPT 訊息傳送器")
 input_label = tk.Label(window, text="請輸入文字：")
 input_label.pack()
 
-user_input_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=60, height=10)
+user_input_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
 user_input_textbox.pack()
 
 # 按鈕
 send_button = tk.Button(window, text="送出給 GPT", command=send_to_gpt)
 send_button.pack()
 
+
 # GPT 回應區域
 output_label = tk.Label(window, text="GPT 回應：")
 output_label.pack()
 
-output_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=60, height=10)
+output_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
 output_textbox.pack()
 
 # 啟動視窗主循環

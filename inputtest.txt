@@ -37,7 +37,7 @@ class MainScene2(Scene):
         title_pos = UP
         title_width = 14
 
-        #答案的內容，你要修改answer以符合正確的答案，
+        #答案的內容，你要修改answer以符合正確的答案，不要有小數點
         answer = f"放入答案"
         answer_pos = DOWN
         answer_width = 4
