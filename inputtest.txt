@@ -23,7 +23,7 @@ class MainScene2(Scene):
         add_pos, min_pos, mup_pos, div_pos,column_pos = 0, 0, 0, 0, 0
 
         #把要運算的數字填入，如果是多種運算方式的結合，你要在第二個運算中，放入第一個運算的結果
-        #以下是舉例不要真的填入：例如8*2-3=15，你就要在add_value1填入8, add_value2填入2，然後運算結果為16，所以接下來要在min_value1填入16，min_value2填入3
+        #以下是舉例不要真的填入：例如8*2-3=15，你就要在mup_value1填入8, mup_value2填入2，然後運算結果為16，所以接下來要在min_value1填入16，min_value2填入3
         add_value1, add_value2 = 0, 0  
         min_value1, min_value2 = 0, 0
         mup_value1, mup_value2 = 0, 0
@@ -37,7 +37,7 @@ class MainScene2(Scene):
         title_pos = UP
         title_width = 14
 
-        #答案的內容，你要修改answer以符合正確的答案，不要有小數點
+        #答案的內容，你要修改answer以符合正確的答案，不要有小數點，我希望answer是一段敘述
         answer = f"放入答案"
         answer_pos = DOWN
         answer_width = 4
