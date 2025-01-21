@@ -1,74 +1,116 @@
+from openai import OpenAI
 import os
-from manim import *
+import tkinter as tk
+from tkinter import scrolledtext
+from dotenv import load_dotenv
+import tempfile
 import subprocess
-import platform
-from add import add
-from minus import minus
-from multiplication import multiplication
-from division import division
-from write import write_text
-from column_method import column_method
 
-class MainScene2(Scene):
-    def construct(self):
-        #載入不同函式運算時使用的參數，pos是運算的順序
-        add_pos, min_pos, mup_pos, div_pos,column_pos = 1, 0, 1, 0,2
-        add_value1, add_value2= 16, 17  
-        min_value1, min_value2= 0, 0
-        mup_value1, mup_value2 = 5, 3
-        div_value1, div_value2= 33, 4
-        column_value1,column_value2,cal_method = 110,4,4
-        #標題的內容
-        title = f"5*3的解題過程如下"
-        title_pos = UP
-        title_width = 14
+# 載入 .env 檔案中的 API 金鑰
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
-        #答案的內容
-        answer = f"放入答案"
-        answer_pos = DOWN
-        answer_width = 4
+# 設定 GPT API
+client = OpenAI(api_key=api_key)
 
-        #創建需要的場景
-        title = write_text(title,title_pos,title_width)
-        #add_scene = add(add_value1, add_value2, add_pos)
-        #minus_scene = minus(min_value1, min_value2, min_pos)
-        multiplication_scene =  multiplication(mup_value1, mup_value2, mup_pos)
-        #division_scene = division(div_value1, div_value2, div_pos)
-        #colume_scene = column_method(column_value1,column_value2,cal_method,column_pos)
-        #answer = write_text(answer,answer_pos,answer_width)
+# 全域變數儲存 GPT 生成的程式碼
+generated_code = ""
 
-        # 執行動畫
-        title.animation(self)
-        #add_scene.animation(self)
-        #minus_scene.animation(self)
-        multiplication_scene.animation(self)
-        #division_scene.animation(self)
-        #colume_scene.animation(self)
-        #answer.animation(self)
-        
+def read_file():
+    try:
+        with open('inputtest.txt', 'r', encoding='utf-8') as file:
+            content = file.read()
+        print("文件內容如下：")
+        print(content)
+        return content
+    except FileNotFoundError:
+        print("找不到 input.txt 文件，請確認檔案是否存在。")
+    except Exception as e:
+        print(f"發生錯誤: {e}")
 
+# 調用函數來讀取並輸出文件內容
+content = read_file()
 
-#下面的內容固定，不會影響影片的內容
-if __name__ == "__main__":
-    config.media_dir = "./test_media"
-    config.pixel_height = 1080
-    config.pixel_width = 1920
-    config.frame_rate = 60
+# 傳送內容給 GPT 並顯示生成的程式碼
+def send_to_gpt():
+    global generated_code
+    user_input = user_input_textbox.get("1.0", tk.END).strip()
+    combined_input = f"{user_input},{content}"
+    if combined_input:
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o-2024-05-13",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": combined_input},
+                ]
+            )
+            generated_code = response.choices[0].message.content.strip()
+            output_textbox.delete("1.0", tk.END)
+            output_textbox.insert(tk.END, generated_code)
+        except Exception as e:
+            output_textbox.delete("1.0", tk.END)
+            output_textbox.insert(tk.END, f"Error: {e}")
 
-    # 渲染影片
-    scene = MainScene2()
-    scene.render()
+# 執行 GPT 生成的程式碼
+def execute_code():
+    global generated_code
+    if generated_code:
+        try:
+            # 建立臨時檔案
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+                temp_file.write(generated_code)
+                temp_file_path = temp_file.name
+            
+            # 使用 subprocess 執行程式碼
+            result = subprocess.run(
+                ["python", temp_file_path],
+                capture_output=True,
+                text=True
+            )
 
-    # 找到生成的影片路徑
-    output_video_path = os.path.join(config.media_dir, "videos", "1080p60", "MainScene2.mp4")
-    
-    # 自動打開影片
-    if platform.system() == "Windows":
-        os.startfile(output_video_path)  # Windows 自動打開影片
-    elif platform.system() == "Darwin":  # MacOS
-        subprocess.run(["open", output_video_path])
-    elif platform.system() == "Linux":  # Linux
-        subprocess.run(["xdg-open", output_video_path])
+            # 顯示執行結果或錯誤訊息
+            if result.returncode == 0:
+                output_textbox.insert(tk.END, f"\n執行成功！輸出內容：\n{result.stdout}")
+            else:
+                output_textbox.insert(tk.END, f"\n執行失敗！錯誤內容：\n{result.stderr}")
+
+            # 刪除臨時檔案
+            os.remove(temp_file_path)
+        except Exception as e:
+            output_textbox.insert(tk.END, f"\n執行生成的程式碼時發生錯誤: {e}")
+    else:
+        output_textbox.insert(tk.END, "\n沒有生成的程式碼可執行！")
+
+# 設定 GUI
+window = tk.Tk()
+window.title("GPT 訊息傳送器")
+
+# 使用者輸入區域
+input_label = tk.Label(window, text="請輸入文字：")
+input_label.pack()
+
+user_input_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
+user_input_textbox.pack()
+
+# 按鈕：傳送給 GPT
+send_button = tk.Button(window, text="送出給 GPT", command=send_to_gpt)
+send_button.pack()
+
+# GPT 回應區域
+output_label = tk.Label(window, text="GPT 生成的程式碼：")
+output_label.pack()
+
+output_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
+output_textbox.pack()
+
+# 按鈕：執行程式碼
+execute_button = tk.Button(window, text="執行生成的程式碼", command=execute_code)
+execute_button.pack()
+
+# 啟動視窗主循環
+window.mainloop()
+
 
 
 

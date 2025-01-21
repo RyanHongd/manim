@@ -50,10 +50,10 @@ def send_to_gpt():
         try:
             # 呼叫 OpenAI GPT API
             response = client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4o-2024-05-13",
                 messages = [
 
-                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
                     {"role": "user", "content": combined_input},
                 ]
             )

@@ -113,7 +113,7 @@ class minus:
         for circle in selected_circles:
             circle[0].set_color(BLUE)
             circle[1].set_color(WHITE)
-            scene.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2 / 2) * 0.3 + 2) + DOWN * 1.5), run_time=0.5)
+            scene.play(circle.animate.move_to(RIGHT * ((ten_circles1.index(circle) - tens2 / 2) * 0.5 + 2) + DOWN * 1.5), run_time=0.5)
 
         scene.wait(2)
         for dot in selected_dots:
@@ -132,7 +132,7 @@ class minus:
         for circle in self.remaining_circles:
             circle[0].set_color(GREEN)
             circle[1].set_color(WHITE)
-            scene.play(circle.animate.move_to(RIGHT * (self.remaining_circles.index(circle))), run_time=0.5)
+            scene.play(circle.animate.move_to(RIGHT * (self.remaining_circles.index(circle))* 0.75), run_time=0.5)
         scene.wait(3)
         scene.play(FadeOut(VGroup(*self.remaining_dots)))
         scene.play(FadeOut(VGroup(*self.remaining_circles)))

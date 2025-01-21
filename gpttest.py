@@ -13,7 +13,7 @@ client = OpenAI(
 def read_file():
     try:
         # 開啟文件並讀取內容
-        with open('inputtest.txt', 'r', encoding='utf-8') as file:
+        with open('without_column.txt', 'r', encoding='utf-8') as file:
             content = file.read()
         
         # 將內容輸出
@@ -27,7 +27,7 @@ def read_file():
 
 # 調用函數來讀取並輸出文件內容
 content=read_file()
-user_input = f"小名有30個50塊，要把這些錢要分給4個人，每個人可以拿到幾塊錢?"
+user_input = f"巧克力每條13顆，小名有3條巧克力， 媽媽吃掉7塊，他現在有多少顆巧克力?"
 combined_input = f"題目是：{user_input},{content}"
 
 response = client.chat.completions.create(
