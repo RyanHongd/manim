@@ -107,6 +107,7 @@ class column_method:
                     scene.play(FadeOut(carry_text), run_time=0.5)
                 scene.wait(2)
 
+                scene.clear()
                 ans_text = Text(f"{self.n1} + {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
@@ -235,6 +236,7 @@ class column_method:
                 for borrow_text in borrow_texts:
                     scene.play(FadeOut(borrow_text), run_time=0.5)
                 
+                scene.clear()
                 ans_text = Text(f"{self.n1} - {self.n2} = {ans}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
@@ -243,7 +245,7 @@ class column_method:
                 self.create_base(scene)
                 ans = self.n1 * self.n2
                 carry = 0
-                
+                cal_time = 0
 
                 opr_method = Text(f"x", **STD_FONT).move_to(LEFT * 1.75 + DOWN * -0.5)
                 scene.play(FadeIn(opr_method))
@@ -272,6 +274,7 @@ class column_method:
 
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1  
                 for i in range(self.t2):
+                    cal_time+=1
                     for j in range(self.t1):    
                         # 加數、被加數以及進位的計算
                         sum_val = (self.list1[j] if j < self.t1 else 0) * (self.list2[i] if i < self.t2 else 0) + carry
@@ -323,13 +326,14 @@ class column_method:
                     num = Text(f"{self.list3[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, -2, 0))
                     printlist3.append(num)
 
-                line2 = Line(start=LEFT * 2 + DOWN * 1.5, end=RIGHT * 4 + DOWN * 1.5, color=WHITE)
-                l2 = 1
-                #顯示直線
-                scene.play(Create(line2))
-                for num in printlist3:
-                    scene.play(FadeIn(num), run_time=0.1)
-                scene.wait(2)
+                if cal_time >= 2:
+
+                    line2 = Line(start=LEFT * 2 + DOWN * (1.5+(cal_time-2)*0.25), end=RIGHT * 4 + DOWN * (1.5+(cal_time-2)*0.25), color=WHITE)
+                    #顯示直線
+                    scene.play(Create(line2))
+                    for num in printlist3:
+                        scene.play(FadeIn(num), run_time=0.1)
+                    scene.wait(2)
 
                 scene.clear()
                 ans_text = Text(f"{self.n1} x {self.n2} = {ans}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
@@ -409,7 +413,14 @@ class column_method:
                     scene.play(Create(line))
                     self.list4.clear()
 
-                    remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx))
+
+                    if ans<10 or self.n2*value>=10 :
+                        remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx-1))
+                    else:
+                        remain_num =  remain_num - self.n2 * value * (10 ** (nt-idx))
+
+                    
+
                     if remain_num==0:
                         nt2=1
                     else:
@@ -451,7 +462,7 @@ class column_method:
                 # 顯示文字
                 scene.play(FadeIn(ans_text))
                 scene.wait(3)
-        
+'''        
         if self.cb ==1:
             scene.play(FadeOut(self.line))
         if rn == 1:
@@ -471,4 +482,4 @@ class column_method:
         #for num in printlist2:
             #scene.play(FadeOut(printlist2))
         
-         
+'''         

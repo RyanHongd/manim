@@ -56,7 +56,7 @@ class MainScene2(Scene):
         title_pos = UP
         title_width = 14
         
-        #一開始的文字解釋，你要生成一段解決這道題目的文字解釋，放入explan中，注意不得超過100字
+        #一開始的文字解釋，你要生成一段解決這道題目的文字解釋，放入explan中，注意文長60~100字
         explan = f"文字解釋"
         explan = Text(explan, font="Noto Sans CJK TC", font_size=20, color=YELLOW)
         explan.scale_to_fit_width(14)
