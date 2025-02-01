@@ -17,11 +17,16 @@ class MainScene2(Scene):
         min_value1, min_value2= 0, 0
         mup_value1, mup_value2 = 0, 0
         div_value1, div_value2= 33, 4
-        column_value1,column_value2,cal_method = 110,4,4
+        column_value1,column_value2,cal_method = 13,9,1
         #標題的內容
         title = f"放入題目"
         title_pos = UP
         title_width = 14
+        #一開始的文字解釋
+        explan = f"現在有 120 個人，先有 10 人離開，剩下的人數是：120−10=110接著，這 110 人要分成 5 人一組，計算組數：110÷5=22\n所以，最後可以分成 22 組。這個過程先減去離開的人，再平均分組，確保計算正確。"
+        explan = Text(explan, font="Noto Sans CJK TC", font_size=20, color=YELLOW)
+        explan.scale_to_fit_width(14)
+        
 
         #答案的內容
         answer = f"放入答案"
@@ -29,21 +34,24 @@ class MainScene2(Scene):
         answer_width = 4
 
         #創建需要的場景
-        #title = write_text(title,title_pos,title_width)
+        title = write_text(title,title_pos,title_width)
         #add_scene = add(add_value1, add_value2, add_pos)
         #minus_scene = minus(min_value1, min_value2, min_pos)
         multiplication_scene =  multiplication(mup_value1, mup_value2, mup_pos)
         #division_scene = division(div_value1, div_value2, div_pos)
-        #colume_scene = column_method(column_value1,column_value2,cal_method,column_pos)
-        #answer = write_text(answer,answer_pos,answer_width)
+        column_scene = column_method(column_value1,column_value2,cal_method,column_pos)
+        answer = write_text(answer,answer_pos,answer_width)
 
         # 執行動畫
         #title.animation(self)
+        #self.play(Write(explan))
+        self.wait(3)
+        self.clear()
         #add_scene.animation(self)
         #minus_scene.animation(self)
-        multiplication_scene.animation(self)
+        #multiplication_scene.animation(self)
         #division_scene.animation(self)
-        #colume_scene.animation(self)
+        column_scene.animation(self)
         #answer.animation(self)
         
 

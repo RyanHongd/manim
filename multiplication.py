@@ -25,11 +25,11 @@ class multiplication:
         m4 = f"數數看最後有多少個"
         m5 = f"因此我們共有{self.product}個點"
 
-        exp_1 = Text(m1, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_2 = Text(m2, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_3 = Text(m3, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_4 = Text(m4, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_5 = Text(m5, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_1 = Text(m1, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_2 = Text(m2, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_3 = Text(m3, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_4 = Text(m4, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_5 = Text(m5, font="Noto Sans CJK TC", font_size=30, color=GREEN)
 
         self.exp_g3 = VGroup(exp_1, exp_2, exp_3, exp_4, exp_5)
         self.exp_g3.arrange(DOWN, aligned_edge=LEFT, buff=0.5)  # 垂直間隔0.5個單位
@@ -48,7 +48,7 @@ class multiplication:
         
         for i in range(n2):
             circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0))
-            text = Text(f"{n1}", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            text = Text(f"{n1}", font="Noto Sans CJK TC", font_size=24).move_to(circle.get_center())
             unit_circles1.append(VGroup(circle, text))
         
         for circle in unit_circles1:
@@ -59,7 +59,7 @@ class multiplication:
 
 
     def show_answer3(self,scene):
-        ans_text = Text(f"{self.n1} x {self.n2} = {self.product}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+        ans_text = Text(f"{self.n1} x {self.n2} = {self.product}", font="Noto Sans CJK TC", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
         
         # 顯示文字
         scene.play(FadeIn(ans_text))

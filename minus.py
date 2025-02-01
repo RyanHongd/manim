@@ -30,14 +30,14 @@ class minus:
         s9 = f"因此我們最後剩下{self.dif}"
         
         # 創建文字物件
-        exp_1 = Text(s2, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_2 = Text(s3, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_3 = Text(s4, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_4 = Text(s5, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_5 = Text(s6, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_6 = Text(s7, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_7 = Text(s8, font="Noto Sans CJK", font_size=24, color=GREEN)
-        self.ans = Text(s9, font="Noto Sans CJK", font_size=30, color=YELLOW).to_edge(DOWN)
+        exp_1 = Text(s2, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_2 = Text(s3, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_3 = Text(s4, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_4 = Text(s5, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_5 = Text(s6, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_6 = Text(s7, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_7 = Text(s8, font="Noto Sans CJK TC", font_size=24, color=GREEN)
+        self.ans = Text(s9, font="Noto Sans CJK TC", font_size=30, color=YELLOW).to_edge(DOWN)
 
         # 將文字物件放入 VGroup 並排列
         self.exp_g2 = VGroup(exp_1, exp_2, exp_3, exp_4, exp_5, exp_6, exp_7).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
@@ -51,8 +51,8 @@ class minus:
 
         # 借位時的文字解釋
         if self.n1 % 10 < self.n2 % 10:
-            text1 = Text(f"因為個位數不夠減", font="Noto Sans CJK", font_size=24).next_to(self.exp_g2, DOWN, buff=0.5)
-            text2 = Text(f"我們必須把一個10拆開變成10個1", font="Noto Sans CJK", font_size=24).next_to(text1, DOWN, buff=0.5)
+            text1 = Text(f"因為個位數不夠減", font="Noto Sans CJK TC", font_size=24).next_to(self.exp_g2, DOWN, buff=0.5)
+            text2 = Text(f"我們必須把一個10拆開變成10個1", font="Noto Sans CJK TC", font_size=24).next_to(text1, DOWN, buff=0.5)
             scene.play(FadeIn(text1), FadeIn(text2))
             scene.wait(2)
             scene.play(FadeOut(text1), FadeOut(text2))
@@ -75,7 +75,7 @@ class minus:
 
         for i in range(tens1):
             circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0))
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            text = Text("10", font="Noto Sans CJK TC", font_size=24).move_to(circle.get_center())
             ten_circles1.append(VGroup(circle, text))
 
         for dot in unit_dots1:
@@ -139,7 +139,7 @@ class minus:
 
     def show_answer2(self, scene):
         # 顯示答案
-        ans_text = Text(f"{self.n1} - {self.n2} = {self.dif}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+        ans_text = Text(f"{self.n1} - {self.n2} = {self.dif}", font="Noto Sans CJK TC", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
         scene.play(FadeIn(ans_text))
         
         scene.wait(2)

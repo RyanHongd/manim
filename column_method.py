@@ -1,7 +1,7 @@
 from manim import *
 import math
 
-STD_FONT = {'font': "Noto Sans CJK", 'font_size': 24}
+STD_FONT = {'font': "Noto Sans CJK TC", 'font_size': 24}
 
 class column_method:
     def __init__(self, n1, n2, cal_method,column_pos):
@@ -33,7 +33,7 @@ class column_method:
 
     def animation(self,scene):
         text=f"我們可以試著用直式來了解計算"
-        print_text=Text(text, font="Noto Sans CJK", font_size=30, color=GREEN)
+        print_text=Text(text, font="Noto Sans CJK TC", font_size=30, color=GREEN)
         print_text.scale_to_fit_width(5)
         print_text.move_to(LEFT * 4)
         scene.play(FadeIn(print_text))

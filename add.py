@@ -30,12 +30,12 @@ class add:
 
 
         # 創建文字物件
-        exp_1 = Text(a2, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_2 = Text(a3, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_3 = Text(a4, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_4 = Text(a5, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_5 = Text(a6, font="Noto Sans CJK", font_size=30, color=GREEN)
-        exp_6 = Text(a7, font="Noto Sans CJK", font_size=30, color=GREEN)
+        exp_1 = Text(a2, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_2 = Text(a3, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_3 = Text(a4, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_4 = Text(a5, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_5 = Text(a6, font="Noto Sans CJK TC", font_size=30, color=GREEN)
+        exp_6 = Text(a7, font="Noto Sans CJK TC", font_size=30, color=GREEN)
 
 
         # 創建 VGroup 並設置排列
@@ -70,7 +70,7 @@ class add:
         
         for i in range(tens1):
             circle = Circle(radius=0.3, color=RED).move_to((i * 0.6 - 0.65, 0, 0))
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            text = Text("10", font="Noto Sans CJK TC", font_size=24).move_to(circle.get_center())
             ten_circles1.append(VGroup(circle, text))
         
         for i in range(units2):
@@ -79,7 +79,7 @@ class add:
         
         for i in range(tens2):
             circle = Circle(radius=0.3, color=BLUE).move_to((i * 0.6 - 0.65, -1.5, 0))
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            text = Text("10", font="Noto Sans CJK TC", font_size=24).move_to(circle.get_center())
             ten_circles2.append(VGroup(circle, text))
         
         # 顯示點和圈
@@ -124,7 +124,7 @@ class add:
             for dot in selected_dots:
                 scene.remove(dot)
             circle = Circle(radius=0.3, color=RED).move_to(rect.get_center())
-            text = Text("10", font="Noto Sans CJK", font_size=24).move_to(circle.get_center())
+            text = Text("10", font="Noto Sans CJK TC", font_size=24).move_to(circle.get_center())
             scene.play(FadeIn(circle, text))
             self.all_circles.append(VGroup(circle, text))
             scene.wait(1)
@@ -143,7 +143,7 @@ class add:
 
     def show_answer1(self, scene):
         # 顯示答案
-        ans_text = Text(f"{self.n1} + {self.n2} = {self.sum}", font="Noto Sans CJK", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
+        ans_text = Text(f"{self.n1} + {self.n2} = {self.sum}", font="Noto Sans CJK TC", font_size=24).move_to(DOWN * ((self.pos*0.5)+1.5))
         
         # 顯示文字
         scene.play(FadeIn(ans_text))
