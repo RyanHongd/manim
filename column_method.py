@@ -66,6 +66,8 @@ class column_method:
                     num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
                 
+                text1 = Text(f"首先我們有{self.n1}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5)
+                scene.play(FadeIn(text1))
                 for num in printlist1:
                     scene.play(FadeIn(num), run_time=0.1)
 
@@ -74,11 +76,15 @@ class column_method:
                     num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
                 
+                text2 = Text(f"接下來我們要加上{self.n2}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 5+DOWN * 0.5)
+                scene.play(FadeIn(text2))
                 for num in printlist2:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
 
                 # 計算答案並處理進位
+                text3 = Text(f"把同一直排的數字相加", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5+DOWN * 1)
+                scene.play(FadeIn(text3))
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1  
                 for i in range(self.t3):    
                     # 加數、被加數以及進位的計算
@@ -92,6 +98,9 @@ class column_method:
 
                     # 若進位存在，顯示進位1
                     if carry > 0:
+                        text4 = Text(f"這一排的數字相加大於10\n因此要進位，補一個1在下一排", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 4.5+DOWN * 1.5)
+                        scene.play(FadeIn(text4))
+                        scene.wait(2)
                         carry_text = Text("1", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to(((i * -0.5) + 3.0, 1.5, 0))
                         carry_texts.append(carry_text)
                         scene.play(FadeIn(carry_text), run_time=0.5)
@@ -125,6 +134,8 @@ class column_method:
                 borrow_texts = []  # 存儲退位顯示物件
 
                 # 顯示被減數
+                text1 = Text(f"首先我們有{self.n1}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5)
+                scene.play(FadeIn(text1))
                 for i in range(self.t1):
                     num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
@@ -133,6 +144,8 @@ class column_method:
                     scene.play(FadeIn(num), run_time=0.1)
 
                 # 顯示減數
+                text2 = Text(f"接下來我們要減去{self.n2}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 5+DOWN * 0.5)
+                scene.play(FadeIn(text2))
                 for i in range(self.t2):
                     num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
@@ -143,6 +156,8 @@ class column_method:
 
 
                 # 計算答案並處理退位
+                text3 = Text(f"把同一直排的數字相減", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5+DOWN * 1)
+                scene.play(FadeIn(text3))
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1  
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
@@ -152,9 +167,12 @@ class column_method:
 
                 for i in range(cal_time):
                     if self.list1[i] < self.list2[i] :
+                        text4 = Text(f"這一排的數字不夠減\n因此要進行退位", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 4.5+DOWN * 1.5)
+                        scene.play(FadeIn(text4))
                         rn=1
                         #退位且前一位數大於0   
                         if self.list1[i+1] > 0:
+                            
                             #斜線
                             num_pos = printlist1[i+1]
                             line_start = num_pos.get_corner(UP + LEFT)  # 左上角
@@ -211,7 +229,7 @@ class column_method:
                                     scene.play(FadeOut(crossed_number))
                                     replace_num2 = Text("9", font="Noto Sans CJK", font_size=18, color=YELLOW).move_to(borrow_texts[-1])
                                     rn2=1
-                                    scene.play(FadeIn(replace_num))
+                                    scene.play(FadeIn(replace_num2))
                                     
                                     self.list1[tag+i+1]=9
 

@@ -17,7 +17,7 @@ class MainScene2(Scene):
         min_value1, min_value2= 0, 0
         mup_value1, mup_value2 = 0, 0
         div_value1, div_value2= 33, 4
-        column_value1,column_value2,cal_method = 20,3,4
+        column_value1,column_value2,cal_method = 100,14,2
         #標題的內容
         title = f"放入題目"
         title_pos = UP
