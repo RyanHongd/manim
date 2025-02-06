@@ -274,6 +274,8 @@ class column_method:
                 printlist3 = []
                 carry_texts = [] 
 
+                text1 = Text(f"首先我們有{self.n1}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5)
+                scene.play(FadeIn(text1))
                 for i in range(self.t1):
                     num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 1, 0))
                     printlist1.append(num)
@@ -281,7 +283,10 @@ class column_method:
                 for num in printlist1:
                     scene.play(FadeIn(num), run_time=0.1)
 
-                # 顯示減數
+                # 顯示被乘數
+                text2 = Text(f"接下來我們要乘上{self.n2}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 5+DOWN * 0.5)
+                scene.play(FadeIn(text2))
+
                 for i in range(self.t2):
                     num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5) + 3.5, 0.5, 0))
                     printlist2.append(num)
@@ -289,6 +294,9 @@ class column_method:
                 for num in printlist2:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
+
+                text3 = Text(f"把同一直排的數字相乘", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5+DOWN * 1)
+                scene.play(FadeIn(text3))
 
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1  
                 for i in range(self.t2):
@@ -304,6 +312,8 @@ class column_method:
                         
                         # 若進位存在，顯示進位1
                         if carry > 0:
+                            text4 = Text(f"這一排的數字相乘大於10\n因此要進位", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 4.5+DOWN * 1.5)
+                            scene.play(FadeIn(text4))
                             carry_text = Text(f"{carry}", font="Noto Sans CJK", font_size=20, color=YELLOW).move_to((((i+j) * -0.5) + 3.0, 1.5, 0))
                             carry_texts.append(carry_text)
                             scene.play(FadeIn(carry_text), run_time=0.5)
@@ -383,6 +393,9 @@ class column_method:
                 remain_num = self.n1
 
                 # 顯示被除數
+                text1 = Text(f"首先我們有{self.n1}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5)
+                scene.play(FadeIn(text1))
+
                 for i in range(self.t1):
                     num = Text(f"{self.list1[i]}", **STD_FONT).move_to(((i * -0.5), 0.9, 0))
                     printlist1.append(num)
@@ -391,6 +404,9 @@ class column_method:
                     scene.play(FadeIn(num), run_time=0.1)
 
                 # 顯示除數
+                text2 = Text(f"接下來我們要除以{self.n2}", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 5+DOWN * 0.5)
+                scene.play(FadeIn(text2))
+
                 for i in range(self.t2):
                     num = Text(f"{self.list2[i]}", **STD_FONT).move_to(((i * -0.5)-1.85, 0.9, 0))
                     printlist2.append(num)
@@ -399,11 +415,14 @@ class column_method:
                     scene.play(FadeIn(num), run_time=0.1)
                 scene.wait(2)
 
+
                 self.t3 =  math.floor(math.log10(abs(ans))) + 1
                 for i in range(self.t3):
                     digit = (ans // (10 ** i)) % 10
                     self.list3.append(digit)
                 
+                text3 = Text(f"從最高的位數往下除", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT *5+DOWN * 1)
+                scene.play(FadeIn(text3))
                 if ans<10:
                     tt=0
                 else:
@@ -445,6 +464,8 @@ class column_method:
                         nt2 =  math.floor(math.log10(abs(remain_num))) + 1
                     
                     if idx!=self.t3-1:
+                        text4 = Text(f"將除完剩下的數往下移，再做一次除法", font="Noto Sans CJK", font_size=24,color=GREEN).move_to(LEFT * 4.5+DOWN * 1.5)
+                        scene.play(FadeIn(text4))
                         for i in range(nt2):
                             digit = int((remain_num // (10 ** i)) % 10)
                             self.list5.append(digit)

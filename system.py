@@ -75,28 +75,27 @@ def send_to_gpt():
             output_textbox.delete("1.0", tk.END)
             output_textbox.insert(tk.END, f"Error: {e}")
 
-# 設定 GUI
 window = tk.Tk()
 window.title("GPT 訊息傳送器")
+window.geometry("800x400")  # 設定初始大小
 
 # 使用者輸入區域
-input_label = tk.Label(window, text="請輸入文字：")
-input_label.pack()
+input_label = tk.Label(window, text="請輸入文字：", font=("Arial", 12))
+input_label.grid(row=0, column=0, sticky="w", padx=10, pady=5)
 
-user_input_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
-user_input_textbox.pack()
+user_input_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=80, height=6, font=("Arial", 12))
+user_input_textbox.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
 
-# 按鈕
-send_button = tk.Button(window, text="送出給 GPT", command=send_to_gpt)
-send_button.pack()
-
+# 送出按鈕
+send_button = tk.Button(window, text="送出給 GPT", command=send_to_gpt, font=("Arial", 12), bg="lightblue")
+send_button.grid(row=2, column=0, pady=10)
 
 # GPT 回應區域
-output_label = tk.Label(window, text="GPT 回應：")
-output_label.pack()
+output_label = tk.Label(window, text="GPT 回應：", font=("Arial", 12))
+output_label.grid(row=3, column=0, sticky="w", padx=10, pady=5)
 
-output_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=100, height=10)
-output_textbox.pack()
+output_textbox = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=80, height=6, font=("Arial", 12))
+output_textbox.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
 
 # 啟動視窗主循環
 window.mainloop()
