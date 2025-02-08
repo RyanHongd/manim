@@ -18,6 +18,7 @@
   - **如果 `110 ÷ 5 = 22`，因為 `110 > 10`，所以這個除法必須用 `column_method`**
   - **如果 `8 ÷ 2 = 4`，因為 `8 ≤ 10` 且 `2 ≤ 10`，所以這個除法可以用 `division`**
   - **如果 `14 ÷ 2 = 7`，因為 `14 > 10`，所以這個除法必須用 `column_method`**
+
   
 * 你的目標是讓程式碼的邏輯與這些規則一致，請確保你完全理解後再給我程式碼。  
 * **如果你違反了上述規則，請重新思考並修正你的回應，確保所有條件都被滿足。**  
@@ -59,6 +60,7 @@ class MainScene2(Scene):
         #一開始的文字解釋，你要生成一段解決這道題目的文字解釋，放入explan中，注意文長60~100字
         explan = f"文字解釋"
         explan = Text(explan, font="Noto Sans CJK TC", font_size=20, color=YELLOW)
+        exp2 = Text(f"想一想，我們該怎麼做呢?", font="Noto Sans CJK TC", font_size=25, color=YELLOW).move_to(DOWN * 0.75)
         explan.scale_to_fit_width(14)
 
         #答案的內容，你要修改answer以符合正確的答案，不要有小數點，我希望answer是一段敘述
@@ -78,7 +80,8 @@ class MainScene2(Scene):
         # 執行動畫，把需要的運算方式留著就好，剩餘的刪掉，以下self開頭的程式碼保留
         title.animation(self)
         self.play(Write(explan))
-        self.wait(3)
+        self.play(Write(exp2))
+        self.wait(5)
         self.clear()
         add_scene.animation(self)
         minus_scene.animation(self)
