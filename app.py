@@ -17,7 +17,7 @@ VIDEO_PATH = "output_media/videos/1080p60/MainScene2.mp4"
 # 讀取 inputtest.txt 內容
 def read_file():
     try:
-        with open('inputtest.txt', 'r', encoding='utf-8') as file:
+        with open('manim\inputtest.txt', 'r', encoding='utf-8') as file:
             return file.read()
     except FileNotFoundError:
         return "找不到 inputtest.txt"
