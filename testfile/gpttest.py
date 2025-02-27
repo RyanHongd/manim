@@ -1,3 +1,4 @@
+import sys
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -13,7 +14,7 @@ client = OpenAI(
 def read_file():
     try:
         # 開啟文件並讀取內容
-        with open('without_column.txt', 'r', encoding='utf-8') as file:
+        with open('inputtest.txt', 'r', encoding='utf-8') as file:
             content = file.read()
         
         # 將內容輸出
@@ -25,9 +26,14 @@ def read_file():
     except Exception as e:
         print(f"發生錯誤: {e}")
 
+# 從命令列參數獲取題目
+if len(sys.argv) > 1:
+    user_input = sys.argv[1]
+else:
+    user_input = "巧克力每條13顆，小名有3條巧克力，媽媽吃掉7塊，他現在有多少顆巧克力?"
+
 # 調用函數來讀取並輸出文件內容
 content=read_file()
-user_input = f"巧克力每條13顆，小名有3條巧克力， 媽媽吃掉7塊，他現在有多少顆巧克力?"
 combined_input = f"題目是：{user_input},{content}"
 
 response = client.chat.completions.create(
