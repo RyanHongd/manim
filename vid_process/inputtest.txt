@@ -1,0 +1,115 @@
+* 讓我們一步一步來思考  
+* 請你幫我調整參數和函式的順序，以符合題目的要求，其他都不要更改，你只能改 MainScene2 裡的內容，最後給我一個完整的 Manim 影片程式碼。  
+* `add` 處理加法，`minus` 處理減法，`multiplication` 處理乘法，`division` 處理除法，`write_text` 處理文字。  
+* `pos` 代表運算的順序，第一個運算設為 1，第二個運算設為 2，以此類推。如果有 3 個以上的運算，請依照數學運算的先後順序繼續增加 `pos` 的數值。  
+* 如果某種運算不需要，請刪除它的變數定義、場景建立以及 `animation()`，確保程式碼中完全不包含這個運算方式。  
+* 請根據運算過程，確保 `title` 與 `answer` 是相符的，不要只是簡單填寫問題，而是讓 `title` 把題目問題重複一遍，並讓 `answer` 以完整句子的方式表達結果。  
+* **當你判斷如果加法或減法的運算結果超過 100，你必須使用 `column_method` 處理該運算，而不是直接用 `add` 或 `minus`。**  
+* **當你判斷如果乘法或除法的「任一運算數字」超過 10，你必須使用 `column_method` 處理該運算，而不是直接用 `multiplication` 或 `division`。這與運算結果無關，只要任一個數大於 10，就必須使用 `column_method`。**  
+* **在確定運算方式之前，請先計算結果，再決定要用哪種函式。**  
+* **示例條件**：
+  - **如果 `120 - 10 = 110`，因為 `110 > 100`，所以這個減法必須用 `column_method` 而不是 `minus`**
+  - **如果 `90 + 20 = 110`，因為 `110 > 100`，所以這個加法必須用 `column_method` 而不是 `add`**
+  - **如果 `80 - 10 = 70`，因為 `70 ≤ 100`，所以這個減法可以用 `minus`**
+  - **如果 `5 × 4 = 20`，因為 `5 ≤ 10` 且 `4 ≤ 10`，所以這個乘法可以用 `multiplication`**
+  - **如果 `12 × 4 = 48`，因為 `12 > 10`，所以這個乘法必須用 `column_method`**
+  - **如果 `40 ÷ 5 = 8`，因為 `40 ≤ 10` 且 `5 ≤ 10`，所以這個除法可以用 `division`**
+  - **如果 `50 ÷ 5 = 10`，因為 `50 > 10`，所以這個除法必須用 `column_method`**
+  - **如果 `110 ÷ 5 = 22`，因為 `110 > 10`，所以這個除法必須用 `column_method`**
+  - **如果 `8 ÷ 2 = 4`，因為 `8 ≤ 10` 且 `2 ≤ 10`，所以這個除法可以用 `division`**
+  - **如果 `14 ÷ 2 = 7`，因為 `14 > 10`，所以這個除法必須用 `column_method`**
+
+  
+* 你的目標是讓程式碼的邏輯與這些規則一致，請確保你完全理解後再給我程式碼。  
+* **如果你違反了上述規則，請重新思考並修正你的回應，確保所有條件都被滿足。**  
+* 請你回覆時不要給我多餘的文字，直接給我程式碼。
+
+
+以下是你要參考的範例程式碼：
+
+import os
+from manim import *
+import subprocess
+import platform
+from add import add
+from minus import minus
+from multiplication import multiplication
+from division import division
+from write import write_text
+from column_method import column_method
+
+class MainScene2(Scene):
+    def construct(self):
+        #載入不同函式運算時使用的參數，pos是運算的順序
+        add_pos, min_pos, mup_pos, div_pos,column_pos = 0, 0, 0, 0, 0
+
+        #把要運算的數字填入，如果是多種運算方式的結合，你要在第二個運算中，放入第一個運算的結果
+        add_value1, add_value2 = 0, 0  
+        min_value1, min_value2 = 0, 0
+        mup_value1, mup_value2 = 0, 0
+        div_value1, div_value2 = 0, 0
+
+        #cal_method是指運算的方法，需要加法就填1，減法填2，乘法填3，除法填4，其餘內容相同
+        column_value1,column_value2,cal_method = 0,0,0
+
+        #標題的內容，你要修改title以符合題目的敘述
+        title = f"放入題目"
+        title_pos = UP
+        title_width = 14
+        
+        #一開始的文字解釋，你要生成一段解決這道題目的文字解釋，放入explan中，注意文長60~100字
+        explan = f"文字解釋"
+        explan = Text(explan, font="Noto Sans CJK TC", font_size=20, color=YELLOW)
+        exp2 = Text(f"想一想，我們該怎麼做呢?", font="Noto Sans CJK TC", font_size=25, color=YELLOW).move_to(DOWN * 0.75)
+        explan.scale_to_fit_width(14)
+
+        #答案的內容，你要修改answer以符合正確的答案，不要有小數點，我希望answer是一段敘述
+        answer = f"放入答案"
+        answer_pos = DOWN
+        answer_width = 8
+
+        #創建需要的場景，把需要的運算方式留著就好，剩餘的刪掉，要記得載入pos
+        title = write_text(title,title_pos,title_width)
+        add_scene = add(add_value1, add_value2, add_pos)
+        minus_scene = minus(min_value1, min_value2, min_pos)
+        multiplication_scene =  multiplication(mup_value1, mup_value2, mup_pos)
+        division_scene = division(div_value1, div_value2, div_pos)
+        column_scene = column_method(column_value1,column_value2,cal_method,column_pos)
+        answer = write_text(answer,answer_pos,answer_width)
+
+        # 執行動畫，把需要的運算方式留著就好，剩餘的刪掉，以下self開頭的程式碼保留
+        title.animation(self)
+        self.play(Write(explan))
+        self.play(Write(exp2))
+        self.wait(5)
+        self.clear()
+        add_scene.animation(self)
+        minus_scene.animation(self)
+        multiplication_scene.animation(self)
+        division_scene.animation(self)
+        column_scene.animation(self)
+        answer.animation(self)
+        
+
+
+#下面的內容固定，不會影響影片的內容
+if __name__ == "__main__":
+    config.media_dir = "./output_media"
+    config.pixel_height = 1080
+    config.pixel_width = 1920
+    config.frame_rate = 60
+
+    # 渲染影片
+    scene = MainScene2()
+    scene.render()
+
+    # 找到生成的影片路徑
+    output_video_path = os.path.join(config.media_dir, "videos", "1080p60", "MainScene2.mp4")
+    
+    # 自動打開影片
+    if platform.system() == "Windows":
+        os.startfile(output_video_path)  # Windows 自動打開影片
+    elif platform.system() == "Darwin":  # MacOS
+        subprocess.run(["open", output_video_path])
+    elif platform.system() == "Linux":  # Linux
+        subprocess.run(["xdg-open", output_video_path])
