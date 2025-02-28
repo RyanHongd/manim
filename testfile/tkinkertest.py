@@ -7,12 +7,12 @@ from manim import UP,DOWN
 from manim import *
 import subprocess
 import platform
-from add import add
-from minus import minus
-from multiplication import multiplication
-from division import division
-from write import write_text
-from column_method import column_method
+from vid_process.add import add
+from vid_process.minus import minus
+from vid_process.multiplication import multiplication
+from vid_process.division import division
+from vid_process.write import write_text
+from vid_process.column_method import column_method
 
 # 載入 .env 檔案中的 API 金鑰
 load_dotenv()
