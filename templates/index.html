@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AI Math Tutor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:700" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script src="{{ url_for('static', filename='index.js') }}" type="text/javascript"></script>
+</head>
+<body>
+    <div id="loading">
+        <div id="spinner"></div>
+    </div>
+    <div id="header" class="animated slideInDown" style="animation-delay:1.8s;">
+    <div id="title">AI Math Tutor</div><br>
+    </div>
+    </div>
+
+    <center>
+    <div id="middle">
+        <div id="tagline" class="animated zoomIn" style="animation-delay:1.8s;">
+            <textarea id="prompt" placeholder="Input Your Prompt" data-virtualkeyboard="true"></textarea><br>
+            <button class="btn_one">Submit</button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".btn_one").click(function(){
+                let userInput = $("#prompt").val();  // 取得輸入框內容
+
+                if (userInput.trim() === "") {
+                    alert("請輸入內容！");
+                    return;
+                }
+
+                $.ajax({
+                    url: "http://127.0.0.1:5000/generate",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({text: userInput}),
+                    success: function(response) {
+                        if (response.video_url) {
+                            alert("影片已生成！準備下載...");
+                            window.location.href = response.video_url;  // 直接下載影片
+                        } else {
+                            alert("影片生成失敗！");
+                        }
+                    },
+                    error: function() {
+                        alert("請求失敗，請檢查 Flask 是否有啟動！");
+                    }
+                });
+            });
+        });
+        const textarea = document.querySelector('#prompt');
+
+        textarea.addEventListener('input', function () {
+            this.style.height = '40px'; // Reset height to recalculate
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px'; // Expand but limit max height
+        });
+    </script>
+    </center>
+
+    <div id="portfolio">
+             <div id="skills">
+                 <h1>skills.</h1>   
+                 <div>Artificial Intelligence.<div>
+             </div>
+         
+              <div id="work">
+                 <h1>works.</h1>
+
+                 <div class="project">
+                 <h2>AI math tutor</h2>
+                 <div> empty <div>
+                 <button class="btn_one">visit project</button>
+                 <button class="btn_two">code</button>
+                </div>
+
+             </div>
+         
+              
+    </div>
+    <div id="footer">
+        <br><br> <a href="https://github.com/RyanHongd/manim">Source Code</a>
+    </div>
+<script src="index.js" type="text/javascript"></script>
+</body>
+</html>

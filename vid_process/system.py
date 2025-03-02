@@ -14,7 +14,7 @@ client = OpenAI(
 def read_file():
     try:
         # 開啟文件並讀取內容
-        with open('inputtest.txt', 'r', encoding='utf-8') as file:
+        with open('manim/vid_process/inputtest.txt', 'r', encoding='utf-8') as file:
             content = file.read()
         
         # 將內容輸出
