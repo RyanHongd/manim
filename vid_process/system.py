@@ -42,7 +42,7 @@ response = client.chat.completions.create(
         {"role": "system", "content": "You are a helpful assistant that only returns Python code."},
         {"role": "user", "content": combined_input}
     ]
-
+ 
 )
 
 output = response.choices[0].message.content.strip()
