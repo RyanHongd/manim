@@ -32,12 +32,12 @@
         $(document).ready(function(){
             $(".btn_one").click(function(){
                 let userInput = $("#prompt").val();  // 取得輸入框內容
-
+    
                 if (userInput.trim() === "") {
-                    alert("請輸入內容！");
+                    $("#responseMessage").text("請輸入內容！").css("color", "red");
                     return;
                 }
-
+    
                 $.ajax({
                     url: "http://127.0.0.1:5000/generate",
                     type: "POST",
@@ -45,18 +45,26 @@
                     data: JSON.stringify({text: userInput}),
                     success: function(response) {
                         if (response.video_url) {
-                            alert("影片已生成！準備下載...");
+                            $("#responseMessage").text("影片已生成！準備下載...").css("color", "green");
                             window.location.href = response.video_url;  // 直接下載影片
                         } else {
-                            alert("影片生成失敗！");
+                            $("#responseMessage").text("影片生成失敗！").css("color", "red");
                         }
                     },
-                    error: function() {
-                        alert("請求失敗，請檢查 Flask 是否有啟動！");
+                    error: function(xhr) {
+                        let errorMessage = "請求失敗，請檢查 Flask 是否有啟動！";
+                        
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        }
+    
+                        $("#responseMessage").text(errorMessage).css("color", "red");
                     }
                 });
             });
         });
+    
+    
         const textarea = document.querySelector('#prompt');
 
         textarea.addEventListener('input', function () {
