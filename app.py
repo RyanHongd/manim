@@ -7,10 +7,12 @@ import subprocess
 
 app = Flask(__name__)
 CORS(app)  # 讓前端能夠存取這個 Flask 伺服器
-VIDEO_PATH = "output_media/videos/1080p60/MainScene2.mp4"
+VIDEO_PATH = "output_media\\videos\\1080p60\\MainScene2.mp4"
 # 執行 gpttest.py 並傳遞題目
 
-
+@app.route('/base', methods=['GET'])
+def base():
+    return render_template('index.html') 
 
 @app.route('/generate', methods=['POST'])
 def generate_video():
@@ -53,9 +55,7 @@ def download_video():
     else:
         return jsonify({"error": "影片不存在"}), 404
 
-@app.route('/base', methods=['GET'])
-def base():
-    return render_template('index.html') 
+
 
 if __name__ == '__main__':
     app.run(debug=True)

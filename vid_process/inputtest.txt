@@ -94,7 +94,7 @@ class MainScene2(Scene):
 
 #下面的內容固定，不會影響影片的內容
 if __name__ == "__main__":
-    config.media_dir = "./output_media"
+    config.media_dir = "./manim/output_media"
     config.pixel_height = 1080
     config.pixel_width = 1920
     config.frame_rate = 60
