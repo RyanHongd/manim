@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>觀看影片</title>
+</head>
+<body>
+    <h1>產生的影片如下：</h1>
+    <video width="640" height="360" controls autoplay>
+        <source src="{{ url_for('static', filename=video_filename) }}" type="video/mp4">
+        您的瀏覽器不支援影片播放。
+    </video>
+</body>
+</html>

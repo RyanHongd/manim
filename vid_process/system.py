@@ -13,16 +13,16 @@ client = OpenAI(
 # 開啟並讀取 input.txt 檔案
 def read_file():
     try:
-        # 開啟文件並讀取內容
-        with open('manim/vid_process/inputtest.txt', 'r', encoding='utf-8') as file:
+        current_dir = os.path.dirname(os.path.abspath(__file__))  # 取得 system.py 所在資料夾
+        file_path = os.path.join(current_dir, "inputtest.txt")    # 建立絕對路徑
+
+        with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
         
-        # 將內容輸出
-        print("文件內容如下：")
-        print(content)
+        
         return content
     except FileNotFoundError:
-        print("找不到 input.txt 文件，請確認檔案是否存在。")
+        print("找不到 inputtest.txt 文件，請確認檔案是否存在。")
     except Exception as e:
         print(f"發生錯誤: {e}")
 
@@ -35,6 +35,7 @@ else:
 # 調用函數來讀取並輸出文件內容
 content=read_file()
 combined_input = f"題目是：{user_input},{content}"
+print("2")
 
 response = client.chat.completions.create(
     model="gpt-4o-2024-05-13",
